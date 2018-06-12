@@ -1,0 +1,51 @@
+{
+  "scripts": {
+    "dev": "cross-env HOST=0.0.0.0 PORT=3000 nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "version": "npm run changelog && git add CHANGELOG.md",
+    "postversion": "git push && npm run release",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
+    "release": "conventional-github-releaser -p angular && bash scripts/deploy.sh",
+    "deploy": "bash scripts/deploy.sh",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.1",
+    "@nuxtjs/pwa": "^2.0.8",
+    "element-ui": "^2.3.9",
+    "nuxt": "^1.0.0",
+    "vue-awesome": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "conventional-changelog-cli": "^2.0.0",
+    "conventional-github-releaser": "^3.1.0",
+    "eslint": "^4.15.0",
+    "eslint-friendly-formatter": "^3.0.0",
+    "eslint-loader": "^1.7.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.2",
+    "style-loader": "^0.21.0"
+  },
+  "name": "yandex-dialogs-client",
+  "version": "0.0.1",
+  "description": "Клиент для работы с навыками Яндекс.Диалогов Алисы локально",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/popstas/yandex-dialogs-client.git"
+  },
+  "keywords": [
+    "speech",
+    "vue"
+  ],
+  "author": "Stanislav Popov <popstas@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/popstas/yandex-dialogs-client/issues"
+  },
+  "homepage": "https://github.com/popstas/yandex-dialogs-client"
+}
