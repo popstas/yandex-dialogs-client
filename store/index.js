@@ -81,12 +81,15 @@ export const actions = {
       version: "1.0"
     };
 
+    const axiosData = { post: data, url: state.webhookURL };
+
     try {
       if (state.webhookURL) {
-        let answer = await this.$axios.post(state.webhookURL, data);
+        let responseData = await this.$axios.$post('/api/request', axiosData);
+        // let responseData = await this.$axios.$post(state.webhookURL, data);
 
         commit(ADD_MESSAGE, {
-          text: answer.data.response.text,
+          text: responseData.response.text,
           author: "Робот"
         });
       } else {

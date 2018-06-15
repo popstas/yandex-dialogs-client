@@ -15,7 +15,9 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/pwa": "^2.0.8",
+    "body-parser": "^1.18.3",
     "element-ui": "^2.3.9",
+    "es6-promise": "^4.2.4",
     "nuxt": "^1.0.0",
     "vue-awesome": "^3.0.0"
   },
