@@ -50,7 +50,9 @@ import {
   ALICE_REQUEST,
   SET_USER_ID,
   SET_SESSION_ID,
-  SET_WEBHOOK_URL
+  SET_WEBHOOK_URL,
+  ADD_MESSAGE,
+  AUTHOR_NAME
 } from "~/store";
 
 export default {
@@ -67,6 +69,10 @@ export default {
 
   methods: {
     onSubmit(val) {
+      this.$store.commit(ADD_MESSAGE, {
+        text: val,
+        author: AUTHOR_NAME
+      });
       let matches = val.match(/^use (.*)$/);
       if (matches) {
         this.$store.dispatch(SET_WEBHOOK_URL, matches[1]);

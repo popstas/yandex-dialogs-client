@@ -52,10 +52,6 @@ export const mutations = {
 
 export const actions = {
   async [ALICE_REQUEST]({ commit, state }, command) {
-    commit(ADD_MESSAGE, {
-      text: command,
-      author: AUTHOR_NAME
-    });
     const offset = new Date().getTimezoneOffset() / 60;
     const timezone = "GMT" + (offset < 0 ? "+" : "-") + Math.abs(offset);
     const userAgent = "popstas/yandex-dialogs-client/" + state.version;
@@ -126,4 +122,4 @@ export const actions = {
   }
 };
 
-export const strict = process.env.NODE_ENV !== "production";
+export const strict = !process.env.production;
