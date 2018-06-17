@@ -1,0 +1,10 @@
+version: '2.1'
+
+services:
+  yandex-dialogs-client:
+    image: popstas/yandex-dialogs-client
+    build: .
+    environment:
+      BASE_URL: https://dialogs.home.popstas.ru # default http://localhost:3000
+    ports:
+      - 3856:3000

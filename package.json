@@ -18,8 +18,12 @@
     "body-parser": "^1.18.3",
     "element-ui": "^2.3.9",
     "es6-promise": "^4.2.4",
+    "node-sass": "^4.9.0",
     "nuxt": "^1.0.0",
-    "vue-awesome": "^3.0.0"
+    "sass-loader": "^7.0.2",
+    "style-loader": "^0.21.0",
+    "vue-awesome": "^3.0.0",
+    "vue-style-loader": "^4.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",
@@ -28,10 +32,7 @@
     "eslint": "^4.15.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.0.0",
-    "node-sass": "^4.9.0",
-    "sass-loader": "^7.0.2",
-    "style-loader": "^0.21.0"
+    "eslint-plugin-vue": "^4.0.0"
   },
   "name": "yandex-dialogs-client",
   "version": "0.0.1",

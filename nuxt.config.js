@@ -3,6 +3,11 @@ const bodyParser = require('body-parser');
 
 module.exports = {
   // mode: 'spa',
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+    production: process.env.NODE_ENV === "production"
+  },
+
   modules: [
     '@nuxtjs/axios',
     ['@nuxtjs/pwa', { icon: false }]
@@ -22,6 +27,10 @@ module.exports = {
     bodyParser.json(),
     { path: '/api/request', handler: '~/api/index.js' },
   ],
+
+  axios: {
+    baseURL: process.env.baseUrl
+  },
 
   /*
   ** Headers of the page
