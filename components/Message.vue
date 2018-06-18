@@ -8,50 +8,50 @@
 </template>
 
 <style lang="scss">
-.message{
+.message {
   margin-top: calc(1rem + 8px);
   margin-bottom: 15px;
   text-align: left;
   float: left;
   transition: none;
 
-  &:hover{
+  &:hover {
     margin-top: 0;
-    .el-card__header{
+    .el-card__header {
       display: block;
     }
   }
-  .el-card__header{
+  .el-card__header {
     display: none;
     padding: 2px 5px;
     border: none;
     background: #eee;
     color: #999;
   }
-  .el-card__body{
+  .el-card__body {
     padding: 5px;
   }
 
-  &_my{
+  &_my {
     float: right;
   }
 
-  &__date{
+  &__date {
     font-size: 0.8rem;
   }
 }
 </style>
 
 <script>
-import {AUTHOR_NAME} from '~/store';
+import { AUTHOR_NAME } from '~/store';
 
 export default {
-  props: ["message"],
+  props: ['message'],
 
   computed: {
-    isMy(){
+    isMy() {
       return this.message.author == AUTHOR_NAME;
     }
   }
-}
+};
 </script>

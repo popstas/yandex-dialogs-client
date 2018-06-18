@@ -26,7 +26,7 @@
     color: #dcdfe6;
     outline: none;
 
-    .el-input__icon{
+    .el-input__icon {
       transition-duration: 0.1s;
     }
 
@@ -41,31 +41,31 @@
 </style>
 
 <script>
-import "vue-awesome/icons/microphone";
+import 'vue-awesome/icons/microphone';
 export default {
   props: {
     value: {
-      default: ""
+      default: ''
     }
   },
 
   data() {
     return {
-      lang: "ru-RU",
+      lang: 'ru-RU',
       q: this.value,
       recognition: false,
       isSpeechRunning: false,
-      runtimeTranscription: "",
+      runtimeTranscription: '',
       transcription: [],
       volume: 0,
       audioContext: false,
-      lastInput: '',
+      lastInput: ''
     };
   },
 
   computed: {
-    volumeScale(){
-      let vol = this.volume
+    volumeScale() {
+      let vol = this.volume;
       if (this.volume < 0.01) vol = 0;
       return Math.min(1.5, 1 + vol * 10);
     }
@@ -77,38 +77,37 @@ export default {
     },
 
     q(val) {
-      this.$emit("input", val);
+      this.$emit('input', val);
     }
   },
 
   methods: {
     submit() {
-      console.log("submit");
-      this.$emit("submit", this.q);
-      this.q = "";
+      console.log('submit');
+      this.$emit('submit', this.q);
+      this.q = '';
     },
 
     async speechStart() {
-      console.log("speech start");
+      console.log('speech start');
       if (!this.recognition) return;
       await this.speechStop();
       this.recognition.start();
       this.isSpeechRunning = true;
 
       // volume listener, https://github.com/cwilso/volume-meter/blob/master/volume-meter.js
-      navigator.getUserMedia({ video: false, audio: true },
-        this.onGetUserMedia,
-        err => reject(err)
+      navigator.getUserMedia({ video: false, audio: true }, this.onGetUserMedia, err =>
+        reject(err)
       );
     },
 
     async speechStop() {
       console.log('this.recognition.stop()');
       if (this.recognition) this.recognition.stop();
-      if (this.audioContext){
-        try{
+      if (this.audioContext) {
+        try {
           await this.audioContext.close();
-        } catch(err){}
+        } catch (err) {}
       }
       this.volume = 0;
       this.isSpeechRunning = false;
@@ -119,7 +118,7 @@ export default {
     },
 
     async onSpeechEnd() {
-      console.log("speech end", this.runtimeTranscription);
+      console.log('speech end', this.runtimeTranscription);
       await this.speechStop();
       if (!this.runtimeTranscription) return;
       if (this.runtimeTranscription == this.lastInput) return;
@@ -132,8 +131,7 @@ export default {
     },
 
     checkSpeechApi() {
-      window.SpeechRecognition =
-        window.SpeechRecognition || window.webkitSpeechRecognition;
+      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
         return;
       }
@@ -143,16 +141,16 @@ export default {
       recognition.lang = this.lang;
       recognition.interimResults = false;
 
-      recognition.addEventListener("result", event => {
-        console.log("speech result", event.results);
+      recognition.addEventListener('result', event => {
+        console.log('speech result', event.results);
         const text = Array.from(event.results)
           .map(result => result[0])
           .map(result => result.transcript)
-          .join("");
+          .join('');
         this.runtimeTranscription = text;
       });
 
-      recognition.addEventListener("end", this.onSpeechEnd);
+      recognition.addEventListener('end', this.onSpeechEnd);
       this.recognition = recognition;
     },
 

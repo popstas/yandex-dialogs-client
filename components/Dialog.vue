@@ -44,8 +44,8 @@
 </style>
 
 <script>
-import SearchInput from "~/components/SearchInput";
-import Message from "~/components/Message";
+import SearchInput from '~/components/SearchInput';
+import Message from '~/components/Message';
 import {
   ALICE_REQUEST,
   SET_USER_ID,
@@ -53,7 +53,7 @@ import {
   SET_WEBHOOK_URL,
   ADD_MESSAGE,
   AUTHOR_NAME
-} from "~/store";
+} from '~/store';
 
 export default {
   components: {
@@ -85,36 +85,23 @@ export default {
       var S4 = function() {
         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
       };
-      return (
-        S4() +
-        S4() +
-        "-" +
-        S4() +
-        "-" +
-        S4() +
-        "-" +
-        S4() +
-        "-" +
-        S4() +
-        S4() +
-        S4()
-      );
+      return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
     },
 
     getUserId() {
-      let userId = localStorage.getItem("userId");
+      let userId = localStorage.getItem('userId');
       if (!userId) {
         userId = this.generateRandomGuid();
-        localStorage.setItem("userId", userId);
+        localStorage.setItem('userId', userId);
       }
       return userId;
     },
 
     getSessionId() {
-      let sessionId = sessionStorage.getItem("sessionId");
+      let sessionId = sessionStorage.getItem('sessionId');
       if (!sessionId) {
         sessionId = this.generateRandomGuid();
-        sessionStorage.setItem("sessionId", sessionId);
+        sessionStorage.setItem('sessionId', sessionId);
       }
       return sessionId;
     }
@@ -123,7 +110,7 @@ export default {
   mounted() {
     this.$store.commit(SET_USER_ID, this.getUserId());
     this.$store.commit(SET_SESSION_ID, this.getSessionId());
-    this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem("webhookURL"));
+    this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
   },
 
   // scroll to messages bottom on messages updated

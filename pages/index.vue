@@ -6,10 +6,10 @@
 </style>
 
 <script>
-import Dialog from '~/components/Dialog'
+import Dialog from '~/components/Dialog';
 export default {
   components: {
     Dialog
   }
-}
+};
 </script>

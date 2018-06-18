@@ -27,6 +27,7 @@
 - `request.payload` всегда пустой
 - `session.message_id` всегда `0`
 - `session.new` всегда `true`
+- Кнопки не обрабатываются
 
 ## Использование
 Проще всего зайти на https://dialogs.popstas.ru (это приложение хостится на github pages, серверной части нет), 
