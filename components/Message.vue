@@ -2,6 +2,7 @@
   <el-card :class="{ 'message': true, 'message_my': isMy }">
     <div slot="header" class="clearfix">
       {{ message.author }} <span class="message__date">{{ message.date }}</span>
+      <el-button v-if="isMy" title="resend" class="message__resend" icon="el-icon-refresh" @click="resend"></el-button>
     </div>
 
     <div class="message__text" v-html="text"></div>
@@ -43,7 +44,15 @@
   }
 
   &__date {
+    margin-left: 10px;
     font-size: 0.8rem;
+  }
+
+  &__resend{
+    margin-left: 10px;
+    background: none;
+    border: none;
+    padding: 0;
   }
 
   &__button{
@@ -88,6 +97,14 @@ export default {
         url: button.url,
         hide: button.hide
       });
+    },
+
+    resend(){
+      this.$store.commit(ADD_MESSAGE, {
+        text: this.message.text,
+        author: AUTHOR_NAME
+      });
+      this.$store.dispatch(ALICE_REQUEST, this.message.text);
     }
   }
 };

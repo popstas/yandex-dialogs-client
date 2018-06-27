@@ -1,5 +1,4 @@
 import pjson from '~/package.json';
-import { isString } from 'util';
 
 export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
@@ -41,7 +40,6 @@ export const mutations = {
   },
 
   [ADD_MESSAGE](state, message) {
-
     message = {
       ...message,
       ...{
