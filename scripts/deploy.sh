@@ -2,7 +2,7 @@
 set -eu
 
 rm -rf dist
-npm run generate
+IS_PROXY=0 npm run generate
 cd dist
 git init
 git add -A

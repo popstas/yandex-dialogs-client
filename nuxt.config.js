@@ -5,7 +5,8 @@ module.exports = {
   // mode: 'spa',
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
-    production: process.env.NODE_ENV === "production"
+    production: process.env.NODE_ENV === "production",
+    isProxy: process.env.IS_PROXY === "1"
   },
 
   modules: [

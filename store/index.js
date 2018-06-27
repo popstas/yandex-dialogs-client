@@ -20,6 +20,7 @@ export const state = () => ({
   homepage: pjson.homepage,
 
   // app state
+  isProxy: process.env.isProxy,
   userId: '',
   sessionId: '',
   webhookURL: ''
@@ -81,8 +82,12 @@ export const actions = {
 
     try {
       if (state.webhookURL) {
-        let responseData = await this.$axios.$post('/api/request', axiosData);
-        // let responseData = await this.$axios.$post(state.webhookURL, data);
+        let responseData;
+        if (state.isProxy) {
+          responseData = await this.$axios.$post('/api/request', axiosData);
+        } else {
+          responseData = await this.$axios.$post(state.webhookURL, data);
+        }
 
         commit(ADD_MESSAGE, {
           text: responseData.response.text,
@@ -113,7 +118,8 @@ export const actions = {
 
     commit(SET_WEBHOOK_URL, url);
     commit(ADD_MESSAGE, {
-      text: 'Используется навык по адресу ' + url,
+      text:
+        'Используется навык по адресу ' + url + (state.isProxy ? ', через прокси' : ', без прокси'),
       author: ''
     });
     localStorage.setItem('webhookURL', url);

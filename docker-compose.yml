@@ -6,5 +6,6 @@ services:
     build: .
     environment:
       BASE_URL: https://dialogs.home.popstas.ru # default http://localhost:3000
+      IS_PROXY: 1
     ports:
       - 3856:3000
