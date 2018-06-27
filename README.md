@@ -16,6 +16,7 @@
 ## Возможности
 - Голосовой ввод через браузерный Speech API
 - Вывод вопросов и ответов
+- Вывод кнопок, отправка запросов с `type = 'ButtonPressed'`
 - `session.session_id` хранится в sessionStorage
 - `session.user_id` хранится в localStorage, то есть каждый браузер считается новым юзером
 
@@ -23,8 +24,6 @@
 - На данный момент можно привязать только один навык
 
 ## Чего нет
-- `request.type` есть только `SimpleUtterance`
-- `request.payload` всегда пустой
 - `session.message_id` всегда `0`
 - `session.new` всегда `true`
 - Кнопки не обрабатываются

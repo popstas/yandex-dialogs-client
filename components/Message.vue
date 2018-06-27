@@ -3,7 +3,13 @@
     <div slot="header" class="clearfix">
       {{ message.author }} <span class="message__date">{{ message.date }}</span>
     </div>
-    {{ message.text }}
+
+    <div class="message__text" v-html="text"></div>
+
+    <div class="bottom clearfix">
+      <el-button class="message__button" round v-html="button.title"
+        v-for="button in message.buttons" :key="button.title" @click="onButton(button)"></el-button>
+    </div>
   </el-card>
 </template>
 
@@ -39,11 +45,17 @@
   &__date {
     font-size: 0.8rem;
   }
+
+  &__button{
+    margin: 3px !important;
+    padding: 3px 6px !important;
+    font-size: 10px;
+  }
 }
 </style>
 
 <script>
-import { AUTHOR_NAME } from '~/store';
+import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST } from '~/store';
 
 export default {
   props: ['message'],
@@ -51,6 +63,31 @@ export default {
   computed: {
     isMy() {
       return this.message.author == AUTHOR_NAME;
+    },
+
+    text() {
+      return this.message.text.split('\n').join('<br>');
+    }
+  },
+
+  methods: {
+    onButton(button){
+      if(button.url){
+        window.open(button.url, '_blank');
+        return;
+      }
+
+      this.$store.commit(ADD_MESSAGE, {
+        text: button.title,
+        author: AUTHOR_NAME
+      });
+      this.$store.dispatch(ALICE_REQUEST, {
+        command: button.title,
+        type: 'ButtonPressed',
+        payload: button.payload,
+        url: button.url,
+        hide: button.hide
+      });
     }
   }
 };

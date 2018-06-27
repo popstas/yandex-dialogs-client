@@ -1,4 +1,5 @@
 import pjson from '~/package.json';
+import { isString } from 'util';
 
 export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
@@ -40,6 +41,7 @@ export const mutations = {
   },
 
   [ADD_MESSAGE](state, message) {
+
     message = {
       ...message,
       ...{
@@ -57,18 +59,28 @@ export const actions = {
     const timezone = 'GMT' + (offset < 0 ? '+' : '-') + Math.abs(offset);
     const userAgent = 'popstas/yandex-dialogs-client/' + state.version;
 
+    let requestOpts = {
+      type: 'SimpleUtterance',
+      payload: {}
+    };
+
+    if(typeof command === 'string'){
+      requestOpts = {...requestOpts, ...{
+        command: command,
+        original_utterance: command,
+      }};
+    } else {
+      requestOpts = {...requestOpts, ...command};
+      requestOpts.original_utterance = requestOpts.command;
+    }
+
     const data = {
       meta: {
         locale: 'ru-RU',
         timezone: timezone,
         client_id: userAgent
       },
-      request: {
-        command: command,
-        original_utterance: command,
-        type: 'SimpleUtterance',
-        payload: {}
-      },
+      request: requestOpts,
       session: {
         message_id: 0,
         new: true,
@@ -91,6 +103,8 @@ export const actions = {
 
         commit(ADD_MESSAGE, {
           text: responseData.response.text,
+          buttons: responseData.response.buttons,
+          end_session: responseData.response.end_session,
           author: 'Робот'
         });
       } else {
@@ -107,7 +121,7 @@ export const actions = {
     }
   },
 
-  [SET_WEBHOOK_URL]({ commit, state }, url) {
+  [SET_WEBHOOK_URL]({ dispatch, commit, state }, url) {
     if (!url) {
       commit(ADD_MESSAGE, {
         text: 'Не указан адрес навыка, пожалуйста, введите его так: use https://localhost:1234',
@@ -123,6 +137,7 @@ export const actions = {
       author: ''
     });
     localStorage.setItem('webhookURL', url);
+    dispatch(ALICE_REQUEST, '');
   }
 };
 
