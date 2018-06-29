@@ -75,7 +75,7 @@ export default {
     },
 
     text() {
-      return this.message.text.split('\n').join('<br>');
+      return this.message.text ? this.message.text.split('\n').join('<br>') : '';
     }
   },
 
