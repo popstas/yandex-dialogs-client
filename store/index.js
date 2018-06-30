@@ -63,12 +63,12 @@ export const mutations = {
   },
 
   [SET_WEBHOOK_URLS](state, webhookURLs) {
-    if(!webhookURLs) webhookURLs = [];
+    if (!webhookURLs) webhookURLs = [];
     state.webhookURLs = webhookURLs;
   },
 
   [ADD_WEBHOOK_URL](state, webhookURL) {
-    if(state.webhookURLs.indexOf(webhookURL) == -1){
+    if (state.webhookURLs.indexOf(webhookURL) == -1) {
       state.webhookURLs.push(webhookURL);
       localStorage.setItem('webhookURLs', JSON.stringify(state.webhookURLs));
     }
