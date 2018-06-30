@@ -1,3 +1,22 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.2.0...v0.3.0) (2018-06-30)
+
+
+### Bug Fixes
+
+* IS_PROXY while docker build ([c0131d5](https://github.com/popstas/yandex-dialogs-client/commit/c0131d5))
+* render response without text ([3a9ca21](https://github.com/popstas/yandex-dialogs-client/commit/3a9ca21))
+
+
+### Features
+
+* session.message_id support ([ed22de8](https://github.com/popstas/yandex-dialogs-client/commit/ed22de8))
+* session.new support ([79d1aea](https://github.com/popstas/yandex-dialogs-client/commit/79d1aea))
+* поддержка response.end_session ([88bfb4a](https://github.com/popstas/yandex-dialogs-client/commit/88bfb4a))
+* сессия теперь сбрасывается при каждом обновлении страницы ([c1023cc](https://github.com/popstas/yandex-dialogs-client/commit/c1023cc))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.1.0...v0.2.0) (2018-06-27)
 
