@@ -81,17 +81,10 @@ export default {
       }
     },
 
-    generateRandomGuid() {
-      var S4 = function() {
-        return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
-      };
-      return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
-    },
-
     getUserId() {
       let userId = localStorage.getItem('userId');
       if (!userId) {
-        userId = this.generateRandomGuid();
+        userId = this.$store.getters.generateRandomGuid();
         localStorage.setItem('userId', userId);
       }
       return userId;
@@ -100,7 +93,7 @@ export default {
 
   mounted() {
     this.$store.commit(SET_USER_ID, this.getUserId());
-    this.$store.dispatch(SESSION_START, this.generateRandomGuid());
+    this.$store.dispatch(SESSION_START);
     this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
   },
 

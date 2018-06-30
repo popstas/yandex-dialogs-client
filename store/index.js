@@ -65,8 +65,17 @@ export const mutations = {
   }
 };
 
+export const getters = {
+  randomGuid() {
+    const S4 = function() {
+      return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+    };
+    return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
+  }
+};
+
 export const actions = {
-  async [ALICE_REQUEST]({ commit, state }, command) {
+  async [ALICE_REQUEST]({ dispatch, commit, state }, command) {
     const offset = new Date().getTimezoneOffset() / 60;
     const timezone = 'GMT' + (offset < 0 ? '+' : '-') + Math.abs(offset);
     const userAgent = 'popstas/yandex-dialogs-client/' + state.version;
@@ -127,6 +136,10 @@ export const actions = {
           end_session: responseData.response.end_session,
           author: 'Робот'
         });
+
+        if (responseData.response.end_session) {
+          dispatch(SESSION_END);
+        }
       } else {
         commit(ADD_MESSAGE, {
           text: 'Не указан адрес навыка, пожалуйста, введите его так: use https://localhost:1234',
@@ -135,9 +148,10 @@ export const actions = {
       }
     } catch (err) {
       commit(ADD_MESSAGE, {
-        text: 'Ошибка запроса к ' + state.webhookURL,
+        text: 'Ошибка запроса к ' + state.webhookURL + ' (см. консоль)',
         author: ''
       });
+      console.error(err);
     }
   },
 
@@ -160,10 +174,18 @@ export const actions = {
     dispatch(ALICE_REQUEST, '');
   },
 
-  [SESSION_START]({ commit }, sessionId) {
-    commit(SET_SESSION_ID, sessionId);
+  [SESSION_START]({ commit, getters }) {
+    commit(SET_SESSION_ID, getters.randomGuid);
     commit(SET_SESSION_NEW, true);
     commit(SET_MESSAGE_ID, 1);
+  },
+
+  [SESSION_END]({ dispatch, commit }) {
+    dispatch(SESSION_START);
+    commit(ADD_MESSAGE, {
+      text: '[Сессия закончена]',
+      author: 'yandex-gialogs-client'
+    });
   }
 };
 
