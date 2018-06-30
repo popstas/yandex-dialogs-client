@@ -20,8 +20,9 @@ module.exports = {
   ],
 
   plugins: [
-    '@/plugins/element-ui',
-    '@/plugins/vue-awesome'
+    '~/plugins/element-ui',
+    '~/plugins/vue-awesome',
+    { src: '~/plugins/vue-slideout', ssr: false }
   ],
 
   serverMiddleware: [

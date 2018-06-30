@@ -2,6 +2,7 @@ import pjson from '~/package.json';
 
 export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
+export const SET_IS_PROXY = 'SET_IS_PROXY';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_SESSION_ID = 'SET_SESSION_ID';
 export const SET_SESSION_NEW = 'SET_SESSION_NEW';
@@ -33,6 +34,10 @@ export const state = () => ({
 });
 
 export const mutations = {
+  [SET_IS_PROXY](state, isProxy) {
+    state.isProxy = isProxy;
+  },
+
   [SET_USER_ID](state, userId) {
     state.userId = userId;
   },

@@ -1,13 +1,27 @@
 <template>
-  <el-container>
-    <el-main>
-      <nuxt/>
-    </el-main>
-  </el-container>
+  <div class="container-wrap">
+    <el-container>
+      <!-- https://github.com/Mango/slideout#user-content-slideoutoptions -->
+      <Slideout :toggleSelectors="['.menu-toggle']" panel="#panel" menu="#menu"
+          side="left" :padding="210">
+        <div id="panel">
+          <el-header height="42px">
+            <button class="menu-toggle">☰</button>
+          </el-header>
+          <el-main>
+            <nuxt/>
+          </el-main>
+        </div>
+      </Slideout>
+    </el-container>
+    <nav id="menu">
+      <Sidebar></Sidebar>
+    </nav>
+  </div>
 </template>
 
 <style lang="scss">
-$max_width: 640px;
+$container-width: 640px;
 
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
@@ -21,23 +35,78 @@ html {
   box-sizing: border-box;
 }
 
-.el-container {
-  margin: 0 auto;
-  max-width: $max_width;
-  background: #fff;
-}
-
-.el-main {
-  padding: 5px;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-end;
-}
-
 *,
 *:before,
 *:after {
   box-sizing: border-box;
   margin: 0;
 }
+
+.container-wrap {
+  margin: 0 auto;
+  max-width: $container_width;
+  background: #fff;
+  position: relative;
+}
+
+.el-main {
+  padding: 5px;
+  display: flex;
+  align-items: flex-end;
+}
+
+.el-header {
+  padding: 0 5px;
+  .menu-toggle {
+    background: none;
+    border: none;
+    line-height: 42px;
+    outline: none;
+    cursor: pointer;
+  }
+}
+.slideout-menu {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 210px;
+  height: 100vh;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+  display: none;
+
+  &-left {
+    left: 0;
+  }
+  &-right {
+    right: 0;
+  }
+
+  .slideout-open & {
+    display: block;
+  }
+}
+
+.slideout-panel {
+  position: relative;
+  z-index: 1;
+  // will-change: transform; - it breaks position: fixed
+  min-height: 100vh;
+  background: #fff;
+  @media (min-width: $container_width) {
+    min-width: $container_width;
+  }
+
+  .slideout-open & {
+    overflow: hidden;
+  }
+}
 </style>
+
+<script>
+import Sidebar from '~/components/Sidebar';
+export default {
+  components: { Sidebar }
+};
+</script>

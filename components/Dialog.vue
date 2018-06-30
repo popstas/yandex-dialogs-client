@@ -20,7 +20,7 @@
   &__messages {
     overflow-y: auto;
     padding: 0 1rem;
-    height: calc(100vh - 130px);
+    height: calc(100vh - 172px);
 
     &:hover {
       padding-right: 0.5rem;
