@@ -102,6 +102,7 @@ export default {
       if (!sessionId) {
         sessionId = this.generateRandomGuid();
         sessionStorage.setItem('sessionId', sessionId);
+        this.$store.commit(SET_SESSION_NEW, true);
       }
       return sessionId;
     }

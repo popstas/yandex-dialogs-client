@@ -4,6 +4,7 @@ export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_SESSION_ID = 'SET_SESSION_ID';
+export const SET_SESSION_NEW = 'SET_SESSION_NEW';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_WEBHOOK_URL = 'SET_WEBHOOK_URL';
 
@@ -23,6 +24,7 @@ export const state = () => ({
   isProxy: process.env.isProxy,
   userId: '',
   sessionId: '',
+  sessionNew: true,
   webhookURL: ''
 });
 
@@ -33,6 +35,10 @@ export const mutations = {
 
   [SET_SESSION_ID](state, sessionId) {
     state.sessionId = sessionId;
+  },
+
+  [SET_SESSION_NEW](state, sessionNew) {
+    state.sessionNew = sessionNew;
   },
 
   [SET_WEBHOOK_URL](state, webhookURL) {
@@ -81,12 +87,16 @@ export const actions = {
       request: requestOpts,
       session: {
         message_id: 0,
-        new: true,
+        new: state.sessionNew,
         session_id: state.sessionId,
         user_id: state.userId
       },
       version: '1.0'
     };
+
+    if(state.sessionNew){
+      commit(SET_SESSION_NEW, false);
+    }
 
     const axiosData = { post: data, url: state.webhookURL };
 

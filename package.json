@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "dev": "cross-env HOST=0.0.0.0 PORT=3000 nuxt",
-    "dev-proxy": "cross-env IS_PROXY=1 HOST=0.0.0.0 PORT=3000 nuxt",
+    "dev": "cross-env HOST=0.0.0.0 PORT=3003 nuxt",
+    "dev-proxy": "cross-env IS_PROXY=1 HOST=0.0.0.0 PORT=3003 nuxt",
     "dev-debug": "node --inspect node_modules/.bin/nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
