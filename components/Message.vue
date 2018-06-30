@@ -8,8 +8,8 @@
     <div class="message__text" v-html="text"></div>
 
     <div class="bottom clearfix">
-      <el-button class="message__button" round v-html="button.title"
-        v-for="button in message.buttons" :key="button.title" @click="onButton(button)"></el-button>
+      <MessageButton class="message__button" v-for="button in message.buttons" :key="button.title"
+        :title="button.title" :value="button.value" :url="button.url" :payload="button.payload"></MessageButton>
     </div>
   </el-card>
 </template>
@@ -54,19 +54,15 @@
     border: none;
     padding: 0;
   }
-
-  &__button{
-    margin: 3px !important;
-    padding: 3px 6px !important;
-    font-size: 10px;
-  }
 }
 </style>
 
 <script>
 import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST } from '~/store';
+import MessageButton from '~/components/MessageButton';
 
 export default {
+  components: { MessageButton },
   props: ['message'],
 
   computed: {
@@ -80,25 +76,6 @@ export default {
   },
 
   methods: {
-    onButton(button){
-      if(button.url){
-        window.open(button.url, '_blank');
-        return;
-      }
-
-      this.$store.commit(ADD_MESSAGE, {
-        text: button.title,
-        author: AUTHOR_NAME
-      });
-      this.$store.dispatch(ALICE_REQUEST, {
-        command: button.title,
-        type: 'ButtonPressed',
-        payload: button.payload,
-        url: button.url,
-        hide: button.hide
-      });
-    },
-
     resend(){
       this.$store.commit(ADD_MESSAGE, {
         text: this.message.text,

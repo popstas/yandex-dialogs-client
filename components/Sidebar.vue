@@ -16,6 +16,12 @@
         {{ $store.state.name }} {{ $store.state.version }}
       </a>
     </el-row>
+
+    <el-row v-if="webhookURLs">
+      <div>Последние URL навыков:</div>
+      <MessageButton v-for="webhookURL in webhookURLs" :key="webhookURL"
+        :title="webhookURL" :value="'use ' + webhookURL"></MessageButton>
+    </el-row>
   </div>
 </template>
 
@@ -41,12 +47,13 @@
 <script>
 import 'vue-awesome/icons/brands/github';
 import SET_IS_PROXY from '~/store';
+import MessageButton from '~/components/MessageButton';
 
 export default {
-  components: {},
+  components: { MessageButton },
 
   computed: {
-    isProxyAvailable(){
+    isProxyAvailable() {
       return !process.env.isProxy;
     },
 
@@ -57,6 +64,10 @@ export default {
       set(val) {
         this.$store.commit('SET_IS_PROXY', val);
       }
+    },
+
+    webhookURLs() {
+      return this.$store.state.webhookURLs;
     }
   }
 };

@@ -50,6 +50,7 @@ import {
   ALICE_REQUEST,
   SET_USER_ID,
   SET_WEBHOOK_URL,
+  SET_WEBHOOK_URLS,
   ADD_MESSAGE,
   AUTHOR_NAME,
   SESSION_START
@@ -88,12 +89,21 @@ export default {
         localStorage.setItem('userId', userId);
       }
       return userId;
+    },
+
+    getWebhookURLs(){
+      try{
+        return JSON.parse(localStorage.getItem('webhookURLs'));
+      } catch(err){
+        return [];
+      }
     }
   },
 
   mounted() {
     this.$store.commit(SET_USER_ID, this.getUserId());
     this.$store.dispatch(SESSION_START);
+    this.$store.commit(SET_WEBHOOK_URLS, this.getWebhookURLs());
     this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
   },
 

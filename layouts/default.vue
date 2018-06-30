@@ -3,7 +3,7 @@
     <el-container>
       <!-- https://github.com/Mango/slideout#user-content-slideoutoptions -->
       <Slideout :toggleSelectors="['.menu-toggle']" panel="#panel" menu="#menu"
-          side="left" :padding="210">
+          side="left" :padding="280">
         <div id="panel">
           <el-header height="42px">
             <button class="menu-toggle">☰</button>
@@ -69,7 +69,7 @@ html {
   position: absolute;
   top: 0;
   bottom: 0;
-  width: 210px;
+  width: 280px;
   height: 100vh;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;

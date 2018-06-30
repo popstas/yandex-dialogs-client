@@ -9,6 +9,8 @@ export const SET_SESSION_NEW = 'SET_SESSION_NEW';
 export const SET_MESSAGE_ID = 'SET_MESSAGE_ID';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_WEBHOOK_URL = 'SET_WEBHOOK_URL';
+export const SET_WEBHOOK_URLS = 'SET_WEBHOOK_URLS';
+export const ADD_WEBHOOK_URL = 'ADD_WEBHOOK_URL';
 export const SESSION_START = 'SESSION_START';
 export const SESSION_END = 'SESSION_END';
 
@@ -30,7 +32,8 @@ export const state = () => ({
   sessionId: '',
   sessionNew: true,
   messageId: 1,
-  webhookURL: ''
+  webhookURL: '',
+  webhookURLs: []
 });
 
 export const mutations = {
@@ -56,6 +59,19 @@ export const mutations = {
 
   [SET_WEBHOOK_URL](state, webhookURL) {
     state.webhookURL = webhookURL;
+    localStorage.setItem('webhookURL', webhookURL);
+  },
+
+  [SET_WEBHOOK_URLS](state, webhookURLs) {
+    if(!webhookURLs) webhookURLs = [];
+    state.webhookURLs = webhookURLs;
+  },
+
+  [ADD_WEBHOOK_URL](state, webhookURL) {
+    if(state.webhookURLs.indexOf(webhookURL) == -1){
+      state.webhookURLs.push(webhookURL);
+      localStorage.setItem('webhookURLs', JSON.stringify(state.webhookURLs));
+    }
   },
 
   [ADD_MESSAGE](state, message) {
@@ -170,12 +186,12 @@ export const actions = {
     }
 
     commit(SET_WEBHOOK_URL, url);
+    commit(ADD_WEBHOOK_URL, url);
     commit(ADD_MESSAGE, {
       text:
         'Используется навык по адресу ' + url + (state.isProxy ? ', через прокси' : ', без прокси'),
       author: ''
     });
-    localStorage.setItem('webhookURL', url);
     dispatch(ALICE_REQUEST, '');
   },
 
