@@ -1,5 +1,6 @@
 FROM node:10-alpine
 ENV NODE_ENV production
+ENV IS_PROXY 1
 
 WORKDIR /app
 COPY . .
