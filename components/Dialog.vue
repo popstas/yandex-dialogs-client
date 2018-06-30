@@ -103,6 +103,7 @@ export default {
         sessionId = this.generateRandomGuid();
         sessionStorage.setItem('sessionId', sessionId);
         this.$store.commit(SET_SESSION_NEW, true);
+        this.$store.commit(SET_MESSAGE_ID, 1);
       }
       return sessionId;
     }
