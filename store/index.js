@@ -8,6 +8,8 @@ export const SET_SESSION_NEW = 'SET_SESSION_NEW';
 export const SET_MESSAGE_ID = 'SET_MESSAGE_ID';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const SET_WEBHOOK_URL = 'SET_WEBHOOK_URL';
+export const SESSION_START = 'SESSION_START';
+export const SESSION_END = 'SESSION_END';
 
 export const AUTHOR_NAME = 'Я';
 
@@ -74,13 +76,16 @@ export const actions = {
       payload: {}
     };
 
-    if(typeof command === 'string'){
-      requestOpts = {...requestOpts, ...{
-        command: command,
-        original_utterance: command,
-      }};
+    if (typeof command === 'string') {
+      requestOpts = {
+        ...requestOpts,
+        ...{
+          command: command,
+          original_utterance: command
+        }
+      };
     } else {
-      requestOpts = {...requestOpts, ...command};
+      requestOpts = { ...requestOpts, ...command };
       requestOpts.original_utterance = requestOpts.command;
     }
 
@@ -100,7 +105,7 @@ export const actions = {
       version: '1.0'
     };
 
-    if(state.sessionNew){
+    if (state.sessionNew) {
       commit(SET_SESSION_NEW, false);
     }
     commit(SET_MESSAGE_ID, state.messageId + 1);
@@ -153,6 +158,12 @@ export const actions = {
     });
     localStorage.setItem('webhookURL', url);
     dispatch(ALICE_REQUEST, '');
+  },
+
+  [SESSION_START]({ commit }, sessionId) {
+    commit(SET_SESSION_ID, sessionId);
+    commit(SET_SESSION_NEW, true);
+    commit(SET_MESSAGE_ID, 1);
   }
 };
 

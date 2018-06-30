@@ -49,10 +49,10 @@ import Message from '~/components/Message';
 import {
   ALICE_REQUEST,
   SET_USER_ID,
-  SET_SESSION_ID,
   SET_WEBHOOK_URL,
   ADD_MESSAGE,
-  AUTHOR_NAME
+  AUTHOR_NAME,
+  SESSION_START
 } from '~/store';
 
 export default {
@@ -95,23 +95,12 @@ export default {
         localStorage.setItem('userId', userId);
       }
       return userId;
-    },
-
-    getSessionId() {
-      let sessionId = sessionStorage.getItem('sessionId');
-      if (!sessionId) {
-        sessionId = this.generateRandomGuid();
-        sessionStorage.setItem('sessionId', sessionId);
-        this.$store.commit(SET_SESSION_NEW, true);
-        this.$store.commit(SET_MESSAGE_ID, 1);
-      }
-      return sessionId;
     }
   },
 
   mounted() {
     this.$store.commit(SET_USER_ID, this.getUserId());
-    this.$store.commit(SET_SESSION_ID, this.getSessionId());
+    this.$store.dispatch(SESSION_START, this.generateRandomGuid());
     this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
   },
 
