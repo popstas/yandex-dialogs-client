@@ -4,6 +4,7 @@ ENV IS_PROXY 1
 
 WORKDIR /app
 COPY . .
+RUN apk --update add --no-cache git
 RUN npm install
 RUN npm run build
 
