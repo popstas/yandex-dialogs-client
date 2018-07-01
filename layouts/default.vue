@@ -2,17 +2,19 @@
   <div class="container-wrap">
     <el-container>
       <!-- https://github.com/Mango/slideout#user-content-slideoutoptions -->
-      <Slideout :toggleSelectors="['.menu-toggle']" panel="#panel" menu="#menu"
-          side="left" :padding="280">
-        <div id="panel">
-          <el-header height="42px">
-            <button class="menu-toggle">☰</button>
-          </el-header>
-          <el-main>
-            <nuxt/>
-          </el-main>
-        </div>
-      </Slideout>
+      <no-ssr>
+        <Slideout :toggleSelectors="['.menu-toggle']" panel="#panel" menu="#menu"
+            side="left" :padding="280">
+          <div id="panel">
+            <el-header height="42px">
+              <button class="menu-toggle">☰</button>
+            </el-header>
+            <el-main>
+              <nuxt/>
+            </el-main>
+          </div>
+        </Slideout>
+      </no-ssr>
     </el-container>
     <nav id="menu">
       <Sidebar></Sidebar>
