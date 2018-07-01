@@ -7,7 +7,7 @@
 
     <div class="message__text" v-html="text"></div>
 
-    <div class="bottom clearfix">
+    <div class="message__buttons">
       <MessageButton class="message__button" v-for="button in message.buttons" :key="button.title"
         :title="button.title" :value="button.value" :url="button.url" :payload="button.payload"></MessageButton>
     </div>
@@ -42,17 +42,17 @@
   &_my {
     float: right;
   }
-  &_info{
+  &_info {
     border-left: 3px solid #17a2b8;
   }
-  &_success{
-    border-left: 3px solid #28a745
+  &_success {
+    border-left: 3px solid #28a745;
   }
-  &_warning{
+  &_warning {
     border-left: 3px solid #ffc107;
   }
-  &_error{
-    border-left: 3px solid #dc3545
+  &_error {
+    border-left: 3px solid #dc3545;
   }
 
   &__date {
@@ -60,11 +60,16 @@
     font-size: 0.8rem;
   }
 
-  &__resend{
+  &__resend {
     margin-left: 10px;
     background: none;
     border: none;
     padding: 0;
+  }
+
+  &__buttons {
+    margin-top: 3px;
+    margin-left: -3px;
   }
 }
 </style>
@@ -88,7 +93,7 @@ export default {
   },
 
   methods: {
-    resend(){
+    resend() {
       this.$store.commit(ADD_MESSAGE, {
         text: this.message.text,
         author: AUTHOR_NAME

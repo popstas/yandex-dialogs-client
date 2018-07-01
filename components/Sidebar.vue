@@ -19,8 +19,12 @@
 
     <el-row v-if="webhookURLs">
       <div>Последние URL навыков:</div>
-      <MessageButton v-for="webhookURL in webhookURLs" :key="webhookURL"
-        :title="webhookURL" :value="'use ' + webhookURL"></MessageButton>
+      <ul class="webhooks-buttons">
+        <li v-for="webhookURL in webhookURLs" :key="webhookURL">
+          <MessageButton
+            :title="webhookURL" :value="'use ' + webhookURL"></MessageButton>
+        </li>
+      </ul>
     </el-row>
   </div>
 </template>
@@ -39,6 +43,14 @@
     color: #333;
     &:hover {
       color: #666;
+    }
+  }
+
+  .webhooks-buttons {
+    padding: 0;
+    margin-left: -3px;
+    li {
+      list-style: none;
     }
   }
 }
