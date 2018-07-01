@@ -1,3 +1,21 @@
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.4.1...v0.5.0) (2018-07-01)
+
+
+### Bug Fixes
+
+* **css:** кнопки выровнены по краям ([5a1132e](https://github.com/popstas/yandex-dialogs-client/commit/5a1132e))
+* ошибка SSR рендеринга Slideout ([a3e9192](https://github.com/popstas/yandex-dialogs-client/commit/a3e9192))
+
+
+### Features
+
+* анимация голосового ввода ([f90732d](https://github.com/popstas/yandex-dialogs-client/commit/f90732d))
+* вывод в консоль JSON запросов и ответов в удобном формате ([51675ae](https://github.com/popstas/yandex-dialogs-client/commit/51675ae))
+* цветовые обозначения сообщений: info, success, warning, error ([a8d7478](https://github.com/popstas/yandex-dialogs-client/commit/a8d7478))
+
+
+
 <a name="0.4.1"></a>
 ## [0.4.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.4.0...v0.4.1) (2018-07-01)
 

@@ -39,7 +39,7 @@
     "eslint-plugin-vue": "^4.0.0"
   },
   "name": "yandex-dialogs-client",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "description": "Клиент для работы с навыками Яндекс.Диалогов Алисы локально",
   "repository": {
     "type": "git",
