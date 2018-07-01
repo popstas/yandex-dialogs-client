@@ -95,9 +95,9 @@ export default {
       this.isSpeechRunning = true;
 
       // volume listener, https://github.com/cwilso/volume-meter/blob/master/volume-meter.js
-      navigator.getUserMedia({ video: false, audio: true }, this.onGetUserMedia, err =>
-        reject(err)
-      );
+      navigator.getUserMedia({ video: false, audio: true }, this.onGetUserMedia, err => {
+        console.log('Ошибка доступа к микрофону, возможно, вы запретили его использование.', err);
+      });
     },
 
     async speechStop() {
@@ -169,6 +169,10 @@ export default {
       processor.clipLevel = clipLevel || 0.98;
       processor.averaging = averaging || 0.95;
       processor.clipLag = clipLag || 750;
+
+      // this will have no effect, since we don't copy the input to the output,
+      // but works around a current Chrome bug.
+      processor.connect(audioContext.destination);
 
       processor.checkClipping = function() {
         if (!this.clipping) return false;
