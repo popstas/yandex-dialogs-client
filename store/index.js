@@ -1,4 +1,5 @@
 import pjson from '~/package.json';
+import yaml from 'js-yaml';
 
 export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
@@ -13,6 +14,7 @@ export const SET_WEBHOOK_URLS = 'SET_WEBHOOK_URLS';
 export const ADD_WEBHOOK_URL = 'ADD_WEBHOOK_URL';
 export const SESSION_START = 'SESSION_START';
 export const SESSION_END = 'SESSION_END';
+export const RUN_TEST = 'RUN_TEST';
 
 export const AUTHOR_NAME = 'Я';
 
@@ -176,7 +178,7 @@ export const actions = {
     }
   },
 
-  [SET_WEBHOOK_URL]({ dispatch, commit, state }, url) {
+  async [SET_WEBHOOK_URL]({ dispatch, commit, state }, url) {
     if (!url) {
       commit(ADD_MESSAGE, {
         text: 'Не указан адрес навыка, пожалуйста, введите его так: use https://localhost:1234',
@@ -193,6 +195,31 @@ export const actions = {
       author: ''
     });
     dispatch(ALICE_REQUEST, '');
+
+    // scenarios.yml
+    try {
+      const responseData = await this.$axios.$get(state.webhookURL + '/scenarios.yml');
+      const doc = yaml.safeLoad(responseData);
+
+      let buttons = [];
+      for (let name in doc) {
+        if (doc.hasOwnProperty(name)) {
+          buttons.push({
+            title: name,
+            payload: JSON.stringify({ scenarios_test: doc[name] })
+          });
+        }
+      }
+
+      commit(ADD_MESSAGE, {
+        text: 'У навыка есть scenarios.yml, в нем есть следующие сценарии:',
+        buttons: buttons,
+        author: 'yandex-dialogs-client'
+      });
+    } catch (err) {
+      console.error(err);
+      // it's normal
+    }
   },
 
   [SESSION_START]({ commit, getters }) {
@@ -205,6 +232,73 @@ export const actions = {
     dispatch(SESSION_START);
     commit(ADD_MESSAGE, {
       text: '[Сессия закончена]',
+      author: 'yandex-gialogs-client'
+    });
+  },
+
+  async [RUN_TEST]({ dispatch, state, commit }, items) {
+    let isUser = true;
+    for (let i in items) {
+      let item = items[i];
+
+      // check
+      if (!isUser) {
+        let msg = state.messages[state.messages.length - 1];
+        if (typeof item === 'string') {
+          console.log(`test ${msg.text} == ${item}`);
+          if (msg.text != item) {
+            commit(ADD_MESSAGE, {
+              text: `Тест не пройден:\nотвечено: ${msg.text}\nожидалось: ${item}`,
+              author: 'yandex-gialogs-client'
+            });
+            return;
+          }
+        }
+        if (typeof item === 'object') {
+          if (!item.tests) {
+            console.error('В yml должны быть tests');
+            return;
+          }
+          let failed = [];
+
+          item.tests.map(testItem => {
+            let testType = Object.keys(testItem)[0];
+            let testVal = testItem[testType];
+            console.log(`test ${testType} ${testVal}`);
+            // contains
+            if (testType == 'contains' && !msg.text.includes(testVal)) {
+              failed.push(`ответ не содержит "${testVal}"`);
+              return;
+            }
+
+            // not contains
+            if (testType == 'not_contains' && msg.text.includes(testVal)) {
+              failed.push(`ответ содержит "${testVal}", но не должен`);
+              return;
+            }
+          });
+
+          if (failed.length > 0) {
+            commit(ADD_MESSAGE, {
+              text: 'Тест не пройден:\n' + failed.join('\n'),
+              author: 'yandex-gialogs-client'
+            });
+            return;
+          }
+        }
+
+        // send
+      } else {
+        commit(ADD_MESSAGE, {
+          text: item,
+          author: AUTHOR_NAME
+        });
+        await dispatch(ALICE_REQUEST, item);
+      }
+      isUser = !isUser;
+    }
+    commit(ADD_MESSAGE, {
+      text: `Тест пройден`,
       author: 'yandex-gialogs-client'
     });
   }

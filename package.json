@@ -20,6 +20,7 @@
     "body-parser": "^1.18.3",
     "element-ui": "^2.3.9",
     "es6-promise": "^4.2.4",
+    "js-yaml": "^3.12.0",
     "node-sass": "^4.9.0",
     "nuxt": "^1.0.0",
     "sass-loader": "^7.0.2",

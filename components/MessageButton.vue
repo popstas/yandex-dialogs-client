@@ -11,7 +11,7 @@
 </style>
 
 <script>
-import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST } from '~/store';
+import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST, RUN_TEST } from '~/store';
 export default {
   props: ['title', 'value', 'url', 'payload', 'hide'],
 
@@ -28,6 +28,14 @@ export default {
     onClick() {
       if(this.url){
         window.open(this.url, '_blank');
+        return;
+      }
+
+      if(this.payload){
+        const payload = JSON.parse(this.payload);
+        if(payload.scenarios_test){
+          this.$store.dispatch(RUN_TEST, payload.scenarios_test);
+        }
         return;
       }
 
