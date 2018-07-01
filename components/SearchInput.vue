@@ -83,7 +83,7 @@ export default {
 
   methods: {
     submit() {
-      console.log('submit');
+      // console.log('submit');
       this.$emit('submit', this.q);
       this.q = '';
     },

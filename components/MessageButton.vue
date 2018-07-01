@@ -11,14 +11,17 @@
 </style>
 
 <script>
-import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST, RUN_TEST } from '~/store';
+import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST, RUN_TEST, SET_WEBHOOK_URL } from '~/store';
 export default {
   props: ['title', 'value', 'url', 'payload', 'hide'],
 
   computed: {
+    // показывается человеку
     text() {
       return this.title || this.value;
     },
+
+    // отправляется боту
     sendText() {
       return this.value || this.title;
     }
@@ -26,11 +29,13 @@ export default {
 
   methods: {
     onClick() {
+      // open url
       if(this.url){
         window.open(this.url, '_blank');
         return;
       }
 
+      // run tests
       if(this.payload){
         const payload = JSON.parse(this.payload);
         if(payload.scenarios_test){
@@ -39,10 +44,20 @@ export default {
         return;
       }
 
+      // add send message
       this.$store.commit(ADD_MESSAGE, {
         text: this.sendText,
         author: AUTHOR_NAME
       });
+
+      // use webhook
+      const matches = this.sendText.match(/^use (.*)$/);
+      if (matches) {
+        this.$store.dispatch(SET_WEBHOOK_URL, matches[1]);
+        return;
+      }
+
+      // send to alice
       this.$store.dispatch(ALICE_REQUEST, {
         command: this.sendText,
         type: 'ButtonPressed',
