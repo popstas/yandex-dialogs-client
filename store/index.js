@@ -18,6 +18,33 @@ export const RUN_TEST = 'RUN_TEST';
 
 export const AUTHOR_NAME = 'Я';
 
+const expandedLog = (() => {
+  var MAX_DEPTH = 1;
+
+  return (item, depth) => {
+    depth = depth || 0;
+
+    if (depth > MAX_DEPTH) {
+      console.log(item);
+      return;
+    }
+
+    if (typeof item === 'object') {
+      for(let key in item){
+        let value = item[key];
+        let msg = '';
+        if(value.request && value.request.command) msg = value.request.command
+        if(value.response && value.response.text) msg = value.response.text
+        console.group(key + ': ' + msg);
+        expandedLog(value, depth + 1);
+        console.groupEnd();
+      }
+    } else {
+      console.log(item);
+    }
+  };
+})();
+
 export const state = () => ({
   // data
   messages: [],
@@ -89,6 +116,7 @@ export const mutations = {
 };
 
 export const getters = {
+  // используется в Dialog.vue
   randomGuid() {
     const S4 = function() {
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
@@ -147,11 +175,16 @@ export const actions = {
     try {
       if (state.webhookURL) {
         let responseData;
+        expandedLog({ request: data });
+        console.log('\n');
         if (state.isProxy) {
           responseData = await this.$axios.$post('/api/request', axiosData);
         } else {
           responseData = await this.$axios.$post(state.webhookURL, data);
         }
+        expandedLog({ response: responseData });
+        console.log('\n\n\n\n\n');
+
 
         commit(ADD_MESSAGE, {
           text: responseData.response.text,
@@ -236,7 +269,7 @@ export const actions = {
   [SESSION_END]({ dispatch, commit }) {
     dispatch(SESSION_START);
     commit(ADD_MESSAGE, {
-      text: '[Сессия закончена]',
+      text: 'Сессия закончена',
       author: 'yandex-gialogs-client',
       class: 'info'
     });

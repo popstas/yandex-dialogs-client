@@ -101,7 +101,6 @@ export default {
     },
 
     async speechStop() {
-      console.log('this.recognition.stop()');
       if (this.recognition) this.recognition.stop();
       if (this.audioContext) {
         try {
