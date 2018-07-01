@@ -1,3 +1,19 @@
+<a name="0.4.1"></a>
+## [0.4.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.4.0...v0.4.1) (2018-07-01)
+
+
+### Bug Fixes
+
+* консистентное поведение при выборе хука из последних ([0b0836b](https://github.com/popstas/yandex-dialogs-client/commit/0b0836b))
+
+
+### Features
+
+* выбор из последних отправленных команд стрелками вниз-вверх ([438cafb](https://github.com/popstas/yandex-dialogs-client/commit/438cafb))
+* фокус на поле ввода после каждого ответа бота ([c318de7](https://github.com/popstas/yandex-dialogs-client/commit/c318de7))
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.3.0...v0.4.0) (2018-07-01)
 
