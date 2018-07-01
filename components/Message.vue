@@ -1,5 +1,5 @@
 <template>
-  <el-card :class="{ 'message': true, 'message_my': isMy }">
+  <el-card :class="{ 'message': true, 'message_my': isMy, ['message_' + message.class]: message.class }">
     <div slot="header" class="clearfix">
       {{ message.author }} <span class="message__date">{{ message.date }}</span>
       <el-button v-if="isMy" title="resend" class="message__resend" icon="el-icon-refresh" @click="resend"></el-button>
@@ -41,6 +41,18 @@
 
   &_my {
     float: right;
+  }
+  &_info{
+    border-left: 3px solid #17a2b8;
+  }
+  &_success{
+    border-left: 3px solid #28a745
+  }
+  &_warning{
+    border-left: 3px solid #ffc107;
+  }
+  &_error{
+    border-left: 3px solid #dc3545
   }
 
   &__date {

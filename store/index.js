@@ -166,13 +166,15 @@ export const actions = {
       } else {
         commit(ADD_MESSAGE, {
           text: 'Не указан адрес навыка, пожалуйста, введите его так: use https://localhost:1234',
-          author: ''
+          author: 'yandex-dialogs-client',
+          class: 'warning'
         });
       }
     } catch (err) {
       commit(ADD_MESSAGE, {
         text: 'Ошибка запроса к ' + state.webhookURL + ' (см. консоль)',
-        author: ''
+        author: '',
+        class: 'error'
       });
       console.error(err);
     }
@@ -182,7 +184,8 @@ export const actions = {
     if (!url) {
       commit(ADD_MESSAGE, {
         text: 'Не указан адрес навыка, пожалуйста, введите его так: use https://localhost:1234',
-        author: ''
+        author: '',
+        class: 'warning'
       });
       return;
     }
@@ -192,7 +195,8 @@ export const actions = {
     commit(ADD_MESSAGE, {
       text:
         'Используется навык по адресу ' + url + (state.isProxy ? ', через прокси' : ', без прокси'),
-      author: ''
+      author: 'yandex-dialogs-client',
+      class: 'info'
     });
     dispatch(ALICE_REQUEST, '');
 
@@ -214,7 +218,8 @@ export const actions = {
       commit(ADD_MESSAGE, {
         text: 'У навыка есть scenarios.yml, в нем есть следующие сценарии:',
         buttons: buttons,
-        author: 'yandex-dialogs-client'
+        author: 'yandex-dialogs-client',
+        class: 'info'
       });
     } catch (err) {
       console.error(err);
@@ -232,7 +237,8 @@ export const actions = {
     dispatch(SESSION_START);
     commit(ADD_MESSAGE, {
       text: '[Сессия закончена]',
-      author: 'yandex-gialogs-client'
+      author: 'yandex-gialogs-client',
+      class: 'info'
     });
   },
 
@@ -249,7 +255,8 @@ export const actions = {
           if (msg.text != item) {
             commit(ADD_MESSAGE, {
               text: `Тест не пройден:\nотвечено: ${msg.text}\nожидалось: ${item}`,
-              author: 'yandex-gialogs-client'
+              author: 'yandex-gialogs-client',
+              class: 'error'
             });
             return;
           }
@@ -281,7 +288,8 @@ export const actions = {
           if (failed.length > 0) {
             commit(ADD_MESSAGE, {
               text: 'Тест не пройден:\n' + failed.join('\n'),
-              author: 'yandex-gialogs-client'
+              author: 'yandex-gialogs-client',
+              class: 'error'
             });
             return;
           }
@@ -299,7 +307,8 @@ export const actions = {
     }
     commit(ADD_MESSAGE, {
       text: `Тест пройден`,
-      author: 'yandex-gialogs-client'
+      author: 'yandex-gialogs-client',
+      class: 'success'
     });
   }
 };
