@@ -8,7 +8,7 @@
       </el-row>
     </div>
 
-    <SearchInput @submit="onSubmit"></SearchInput>
+    <SearchInput v-model="q" @submit="onSubmit" @up="previousMessage" @down="nextMessage"></SearchInput>
   </div>
 </template>
 
@@ -62,6 +62,13 @@ export default {
     Message
   },
 
+  data() {
+    return {
+      currentMessage: -1,
+      q: ''
+    }
+  },
+
   computed: {
     messages() {
       return this.$store.state.messages;
@@ -70,6 +77,7 @@ export default {
 
   methods: {
     onSubmit(val) {
+      this.currentMessage = -1;
       this.$store.commit(ADD_MESSAGE, {
         text: val,
         author: AUTHOR_NAME
@@ -80,6 +88,41 @@ export default {
       } else {
         this.$store.dispatch(ALICE_REQUEST, val);
       }
+    },
+
+    previousMessage(){
+      this.currentMessage++;
+      let msg = this.getMyMessage(this.currentMessage);
+
+      // last message
+      if(!msg){
+        this.currentMessage--;
+        msg = this.getMyMessage(this.currentMessage);
+      }
+
+      this.q = msg.text;
+    },
+
+    nextMessage(){
+      if(this.currentMessage == -1) return;
+
+      this.currentMessage--;
+
+      // empty message
+      if(this.currentMessage == -1){
+        this.q = '';
+        return;
+      }
+
+      const msg = this.getMyMessage(this.currentMessage);
+      this.q = msg.text;
+    },
+
+    // num - position from last, 0 - last, 1 - previous
+    getMyMessage(num){
+      const msgs = this.messages.filter(message => message.author == AUTHOR_NAME);
+      const ind = msgs.length - 1 - num;
+      return msgs[ind] || false;
     },
 
     getUserId() {

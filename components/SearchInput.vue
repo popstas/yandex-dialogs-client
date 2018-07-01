@@ -6,7 +6,7 @@
         :style="{ transform: 'scale(' + volumeScale +')' }"></icon>
     </button>
 
-    <el-input v-model="q" clearable autofocus @keyup.native.enter="submit">
+    <el-input v-model="q" clearable autofocus @keyup.native.enter="submit" @keyup.native.up="$emit('up')" @keyup.native.down="$emit('down')">
     </el-input>
   </div>
 </template>
@@ -83,7 +83,6 @@ export default {
 
   methods: {
     submit() {
-      // console.log('submit');
       this.$emit('submit', this.q);
       this.q = '';
     },
