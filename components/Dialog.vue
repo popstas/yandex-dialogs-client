@@ -8,7 +8,7 @@
       </el-row>
     </div>
 
-    <SearchInput v-model="q" @submit="onSubmit" @up="previousMessage" @down="nextMessage"></SearchInput>
+    <SearchInput v-model="q" @submit="onSubmit" @up="previousMessage" @down="nextMessage" ref="searchInput"></SearchInput>
   </div>
 </template>
 
@@ -72,6 +72,12 @@ export default {
   computed: {
     messages() {
       return this.$store.state.messages;
+    }
+  },
+
+  watch: {
+    messages(){
+      this.$refs.searchInput.$refs.input.focus();
     }
   },
 

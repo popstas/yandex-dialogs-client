@@ -6,7 +6,7 @@
         :style="{ transform: 'scale(' + volumeScale +')' }"></icon>
     </button>
 
-    <el-input v-model="q" clearable autofocus @keyup.native.enter="submit" @keyup.native.up="$emit('up')" @keyup.native.down="$emit('down')">
+    <el-input ref="input" v-model="q" clearable autofocus @keydown.native.enter="submit" @keydown.native.up="$emit('up')" @keyup.native.down="$emit('down')">
     </el-input>
   </div>
 </template>
