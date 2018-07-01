@@ -1,3 +1,15 @@
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.3.0...v0.4.0) (2018-07-01)
+
+
+### Features
+
+* боковая панель, настройка прокси ([c4f2b96](https://github.com/popstas/yandex-dialogs-client/commit/c4f2b96))
+* выбор из последних URL навыков ([ab90805](https://github.com/popstas/yandex-dialogs-client/commit/ab90805))
+* сценарии тестирования навыка ([6e4f30e](https://github.com/popstas/yandex-dialogs-client/commit/6e4f30e))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.2.0...v0.3.0) (2018-06-30)
 
