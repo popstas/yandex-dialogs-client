@@ -30,11 +30,11 @@ const expandedLog = (() => {
     }
 
     if (typeof item === 'object') {
-      for(let key in item){
+      for (let key in item) {
         let value = item[key];
         let msg = '';
-        if(value.request && value.request.command) msg = value.request.command
-        if(value.response && value.response.text) msg = value.response.text
+        if (value.request && value.request.command) msg = value.request.command;
+        if (value.response && value.response.text) msg = value.response.text;
         console.group(key + ': ' + msg);
         expandedLog(value, depth + 1);
         console.groupEnd();
@@ -184,7 +184,6 @@ export const actions = {
         }
         expandedLog({ response: responseData });
         console.log('\n\n\n\n\n');
-
 
         commit(ADD_MESSAGE, {
           text: responseData.response.text,

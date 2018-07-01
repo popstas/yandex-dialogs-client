@@ -66,7 +66,7 @@ export default {
     return {
       currentMessage: -1,
       q: ''
-    }
+    };
   },
 
   computed: {
@@ -76,7 +76,7 @@ export default {
   },
 
   watch: {
-    messages(){
+    messages() {
       this.$refs.searchInput.$refs.input.focus();
     }
   },
@@ -96,12 +96,12 @@ export default {
       }
     },
 
-    previousMessage(){
+    previousMessage() {
       this.currentMessage++;
       let msg = this.getMyMessage(this.currentMessage);
 
       // last message
-      if(!msg){
+      if (!msg) {
         this.currentMessage--;
         msg = this.getMyMessage(this.currentMessage);
       }
@@ -109,13 +109,13 @@ export default {
       this.q = msg.text;
     },
 
-    nextMessage(){
-      if(this.currentMessage == -1) return;
+    nextMessage() {
+      if (this.currentMessage == -1) return;
 
       this.currentMessage--;
 
       // empty message
-      if(this.currentMessage == -1){
+      if (this.currentMessage == -1) {
         this.q = '';
         return;
       }
@@ -125,7 +125,7 @@ export default {
     },
 
     // num - position from last, 0 - last, 1 - previous
-    getMyMessage(num){
+    getMyMessage(num) {
       const msgs = this.messages.filter(message => message.author == AUTHOR_NAME);
       const ind = msgs.length - 1 - num;
       return msgs[ind] || false;
@@ -140,10 +140,10 @@ export default {
       return userId;
     },
 
-    getWebhookURLs(){
-      try{
+    getWebhookURLs() {
+      try {
         return JSON.parse(localStorage.getItem('webhookURLs'));
-      } catch(err){
+      } catch (err) {
         return [];
       }
     }

@@ -3,7 +3,7 @@
 </template>
 
 <style lang="scss">
-.dialog-button{
+.dialog-button {
   margin: 3px !important;
   padding: 3px 6px !important;
   font-size: 10px;
@@ -30,15 +30,15 @@ export default {
   methods: {
     onClick() {
       // open url
-      if(this.url){
+      if (this.url) {
         window.open(this.url, '_blank');
         return;
       }
 
       // run tests
-      if(this.payload){
+      if (this.payload) {
         const payload = JSON.parse(this.payload);
-        if(payload.scenarios_test){
+        if (payload.scenarios_test) {
           this.$store.dispatch(RUN_TEST, payload.scenarios_test);
         }
         return;
