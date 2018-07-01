@@ -134,7 +134,7 @@ export default {
     getUserId() {
       let userId = localStorage.getItem('userId');
       if (!userId) {
-        userId = this.$store.getters.generateRandomGuid();
+        userId = this.$store.getters.randomGuid;
         localStorage.setItem('userId', userId);
       }
       return userId;
