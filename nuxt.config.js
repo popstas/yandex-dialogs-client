@@ -11,7 +11,7 @@ module.exports = {
 
   modules: [
     '@nuxtjs/axios',
-    ['@nuxtjs/pwa', { icon: false }]
+    '@nuxtjs/pwa'
   ],
 
   css: [
