@@ -121,7 +121,7 @@ export const mutations = {
     message = {
       ...message,
       ...{
-        id: new Date().getTime(),
+        id: window.performance.now(),
         date: new Date().toLocaleString()
       }
     };
