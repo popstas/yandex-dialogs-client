@@ -23,7 +23,6 @@ const expandedLog = (() => {
   var MAX_DEPTH = 1;
 
   return (item, depth) => {
-    return; //TODO:;
     depth = depth || 0;
 
     if (depth > MAX_DEPTH) {
