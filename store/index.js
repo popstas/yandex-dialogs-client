@@ -309,7 +309,7 @@ export const actions = {
   },
 
   async [RUN_TEST]({ dispatch, state, commit }, dialogs) {
-    let isAllErrors = false;
+    let allFailedTests = [];
 
     // test suites (one dialog - one button)
     for (let d in dialogs) {
@@ -350,6 +350,12 @@ export const actions = {
             commit(ADD_MESSAGE, {
               text: `Тест не пройден:\nотвечено: ${msg.text}\nожидалось: ${message}`,
               author: 'yandex-gialogs-client',
+              buttons: [
+                {
+                  title: 'повторить тест',
+                  payload: JSON.stringify({ scenarios_test: [dialog] })
+                }
+              ],
               class: 'error'
             });
             break; // end test
@@ -400,7 +406,7 @@ export const actions = {
         // end of message
       }
 
-      if (isDialogErrors) isAllErrors = true;
+      if (isDialogErrors) allFailedTests.push(dialog);
       if (!isDialogErrors) {
         commit(ADD_MESSAGE, {
           text: `Тест пройден`,
@@ -412,10 +418,24 @@ export const actions = {
     }
 
     if (dialogs.length > 1) {
-      if (isAllErrors) {
+      if (allFailedTests.length > 0) {
+        let buttons = allFailedTests.map(dialog => {
+          return {
+            title: dialog.name,
+            payload: JSON.stringify({ scenarios_test: [dialog] })
+          };
+        });
+        if (allFailedTests.length > 1) {
+          buttons.push({
+            title: 'все проваленные тесты',
+            payload: JSON.stringify({ scenarios_test: allFailedTests })
+          });
+        }
+
         commit(ADD_MESSAGE, {
           text: 'Не все тесты пройдены :(',
           author: 'yandex-gialogs-client',
+          buttons: buttons,
           class: 'error'
         });
       } else {
