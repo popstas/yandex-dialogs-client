@@ -1,3 +1,20 @@
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.5.0...v0.6.0) (2018-07-02)
+
+
+### Bug Fixes
+
+* новые пользователи не могли получить guid ([d1a6683](https://github.com/popstas/yandex-dialogs-client/commit/d1a6683))
+
+
+### Features
+
+* более удобный вывод тестов ([e6fd86c](https://github.com/popstas/yandex-dialogs-client/commit/e6fd86c))
+* запуск всех тестов одной кнопкой ([5719b37](https://github.com/popstas/yandex-dialogs-client/commit/5719b37))
+* иконка Алисы ([12ccfc6](https://github.com/popstas/yandex-dialogs-client/commit/12ccfc6))
+
+
+
 <a name="0.5.0"></a>
 # [0.5.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.4.1...v0.5.0) (2018-07-01)
 
