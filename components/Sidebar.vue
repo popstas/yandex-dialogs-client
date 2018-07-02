@@ -11,6 +11,10 @@
     </el-row>
 
     <el-row>
+      <el-switch active-text="Показывать тесты внизу" v-if="$store.state.tests.length > 0" v-model="isBottomTests"></el-switch>
+    </el-row>
+
+    <el-row>
       <a class="app-link" :href="$store.state.homepage" target="_blank">
         <icon name="brands/github"></icon>
         {{ $store.state.name }} {{ $store.state.version }}
@@ -58,7 +62,7 @@
 
 <script>
 import 'vue-awesome/icons/brands/github';
-import SET_IS_PROXY from '~/store';
+import { SET_IS_PROXY, SET_IS_BOTTOM_TESTS } from '~/store';
 import MessageButton from '~/components/MessageButton';
 
 export default {
@@ -75,6 +79,15 @@ export default {
       },
       set(val) {
         this.$store.commit('SET_IS_PROXY', val);
+      }
+    },
+
+    isBottomTests: {
+      get() {
+        return this.$store.state.isBottomTests;
+      },
+      set(val) {
+        this.$store.commit('SET_IS_BOTTOM_TESTS', val);
       }
     },
 

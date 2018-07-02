@@ -4,6 +4,7 @@ import yaml from 'js-yaml';
 export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
 export const SET_IS_PROXY = 'SET_IS_PROXY';
+export const SET_IS_BOTTOM_TESTS = 'SET_IS_BOTTOM_TESTS';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_SESSION_ID = 'SET_SESSION_ID';
 export const SET_SESSION_NEW = 'SET_SESSION_NEW';
@@ -58,6 +59,7 @@ export const state = () => ({
 
   // app state
   isProxy: process.env.isProxy,
+  isBottomTests: false,
   userId: '',
   sessionId: '',
   sessionNew: true,
@@ -70,6 +72,12 @@ export const state = () => ({
 export const mutations = {
   [SET_IS_PROXY](state, isProxy) {
     state.isProxy = isProxy;
+  },
+
+  [SET_IS_BOTTOM_TESTS](state, isBottomTests) {
+    state.isBottomTests = isBottomTests;
+    localStorage.setItem('isBottomTests', isBottomTests);
+    console.log(localStorage.getItem('isBottomTests'));
   },
 
   [SET_USER_ID](state, userId) {

@@ -6,6 +6,12 @@
           <Message :message="message"></Message>
         </el-row>
       </el-row>
+      <div class="dialog__tests" v-if="tests && $store.state.isBottomTests">
+        <MessageButton class="message__button" v-for="dialog in tests" :key="dialog.name"
+          :title="dialog.name" :payload="JSON.stringify({ scenarios_test: [dialog] })"></MessageButton>
+        <MessageButton class="message__button" title="все тесты" :payload="JSON.stringify({ scenarios_test: tests })"></MessageButton>
+      </div>
+
     </div>
 
     <SearchInput v-model="q" @submit="onSubmit" @up="previousMessage" @down="nextMessage" ref="searchInput"></SearchInput>
@@ -46,11 +52,13 @@
 <script>
 import SearchInput from '~/components/SearchInput';
 import Message from '~/components/Message';
+import MessageButton from '~/components/MessageButton';
 import {
   ALICE_REQUEST,
   SET_USER_ID,
   SET_WEBHOOK_URL,
   SET_WEBHOOK_URLS,
+  SET_IS_BOTTOM_TESTS,
   ADD_MESSAGE,
   AUTHOR_NAME,
   SESSION_START
@@ -59,7 +67,8 @@ import {
 export default {
   components: {
     SearchInput,
-    Message
+    Message,
+    MessageButton
   },
 
   data() {
@@ -72,6 +81,10 @@ export default {
   computed: {
     messages() {
       return this.$store.state.messages;
+    },
+
+    tests() {
+      return this.$store.state.tests;
     }
   },
 
@@ -154,6 +167,7 @@ export default {
     this.$store.dispatch(SESSION_START);
     this.$store.commit(SET_WEBHOOK_URLS, this.getWebhookURLs());
     this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
+    this.$store.commit(SET_IS_BOTTOM_TESTS, JSON.parse(localStorage.getItem('isBottomTests')));
   },
 
   // scroll to messages bottom on messages updated
