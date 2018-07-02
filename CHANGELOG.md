@@ -1,3 +1,21 @@
+<a name="0.6.1"></a>
+## [0.6.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.6.0...v0.6.1) (2018-07-02)
+
+
+### Bug Fixes
+
+* исправлено дублирование внутренних message.id ([71de9a9](https://github.com/popstas/yandex-dialogs-client/commit/71de9a9))
+* снова включен вывод запросов и ответов в консоли ([2113de1](https://github.com/popstas/yandex-dialogs-client/commit/2113de1))
+
+
+### Features
+
+* возможность всегда показывать кнопки тестов ([51f936b](https://github.com/popstas/yandex-dialogs-client/commit/51f936b))
+* возможность скрыть JSON запросов в консоли ([0600cee](https://github.com/popstas/yandex-dialogs-client/commit/0600cee))
+* вывод url навыка в title ([d77cd97](https://github.com/popstas/yandex-dialogs-client/commit/d77cd97))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.5.0...v0.6.0) (2018-07-02)
 
