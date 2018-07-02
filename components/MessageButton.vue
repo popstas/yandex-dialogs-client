@@ -39,11 +39,6 @@ export default {
       if (this.payload) {
         const payload = JSON.parse(this.payload);
         if (payload.scenarios_test) {
-          this.$store.commit(ADD_MESSAGE, {
-            text: `Тест: ${this.text}`,
-            author: 'yandex-gialogs-client',
-            class: 'info'
-          });
           this.$store.dispatch(RUN_TEST, payload.scenarios_test);
         }
         return;

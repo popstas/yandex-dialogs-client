@@ -15,6 +15,7 @@ export const ADD_WEBHOOK_URL = 'ADD_WEBHOOK_URL';
 export const SESSION_START = 'SESSION_START';
 export const SESSION_END = 'SESSION_END';
 export const RUN_TEST = 'RUN_TEST';
+export const SET_TESTS = 'SET_TESTS';
 
 export const AUTHOR_NAME = 'Я';
 
@@ -22,6 +23,7 @@ const expandedLog = (() => {
   var MAX_DEPTH = 1;
 
   return (item, depth) => {
+    return; //TODO:;
     depth = depth || 0;
 
     if (depth > MAX_DEPTH) {
@@ -62,7 +64,8 @@ export const state = () => ({
   sessionNew: true,
   messageId: 1,
   webhookURL: '',
-  webhookURLs: []
+  webhookURLs: [],
+  tests: []
 });
 
 export const mutations = {
@@ -84,6 +87,10 @@ export const mutations = {
 
   [SET_MESSAGE_ID](state, messageId) {
     state.messageId = messageId;
+  },
+
+  [SET_TESTS](state, tests) {
+    state.tests = tests;
   },
 
   [SET_WEBHOOK_URL](state, webhookURL) {
@@ -237,15 +244,25 @@ export const actions = {
       const responseData = await this.$axios.$get(state.webhookURL + '/scenarios.yml');
       const doc = yaml.safeLoad(responseData);
 
+      let tests = [];
       let buttons = [];
       for (let name in doc) {
-        if (doc.hasOwnProperty(name)) {
-          buttons.push({
-            title: name,
-            payload: JSON.stringify({ scenarios_test: doc[name] })
-          });
-        }
+        const dialog = {
+          name: name,
+          messages: doc[name]
+        };
+        tests.push(dialog);
+        buttons.push({
+          title: name,
+          payload: JSON.stringify({ scenarios_test: [dialog] })
+        });
       }
+      commit(SET_TESTS, tests);
+
+      buttons.push({
+        title: 'все тесты',
+        payload: JSON.stringify({ scenarios_test: tests })
+      });
 
       commit(ADD_MESSAGE, {
         text: 'У навыка есть scenarios.yml, в нем есть следующие сценарии:',
@@ -274,74 +291,125 @@ export const actions = {
     });
   },
 
-  async [RUN_TEST]({ dispatch, state, commit }, items) {
-    let isUser = true;
-    for (let i in items) {
-      let item = items[i];
+  async [RUN_TEST]({ dispatch, state, commit }, dialogs) {
+    let isAllErrors = false;
 
-      // check
-      if (!isUser) {
+    // test suites (one dialog - one button)
+    for (let d in dialogs) {
+      const dialog = dialogs[d];
+      commit(ADD_MESSAGE, {
+        text: `Тест: ${dialog.name}`,
+        author: 'yandex-gialogs-client',
+        class: 'info'
+      });
+
+      let isDialogErrors = false;
+      let isUser = true;
+
+      // test steps
+      for (let i in dialog.messages) {
+        const message = dialog.messages[i];
+
+        // send user message
+        if (isUser) {
+          commit(ADD_MESSAGE, {
+            text: message,
+            author: AUTHOR_NAME
+          });
+          await dispatch(ALICE_REQUEST, message);
+          isUser = !isUser;
+          continue;
+        }
+        isUser = !isUser;
+
+        // check bot's answer
         let msg = state.messages[state.messages.length - 1];
-        if (typeof item === 'string') {
-          console.log(`test ${msg.text} == ${item}`);
-          if (msg.text != item) {
+
+        // simple equals string
+        if (typeof message === 'string') {
+          console.log(`test ${msg.text} == ${message}`);
+          if (msg.text != message) {
+            isDialogErrors = true;
             commit(ADD_MESSAGE, {
-              text: `Тест не пройден:\nотвечено: ${msg.text}\nожидалось: ${item}`,
+              text: `Тест не пройден:\nотвечено: ${msg.text}\nожидалось: ${message}`,
               author: 'yandex-gialogs-client',
               class: 'error'
             });
-            return;
+            break; // end test
           }
         }
-        if (typeof item === 'object') {
-          if (!item.tests) {
-            console.error('В yml должны быть tests');
-            return;
-          }
-          let failed = [];
 
-          item.tests.map(testItem => {
-            let testType = Object.keys(testItem)[0];
-            let testVal = testItem[testType];
+        // message tests
+        if (typeof message === 'object') {
+          if (!message.tests) {
+            isDialogErrors = true;
+            commit(ADD_MESSAGE, {
+              text: `Тест не пройден: в объекте ` + JSON.stringify(message) + 'нет поля tests',
+              author: 'yandex-gialogs-client',
+              class: 'error'
+            });
+            break;
+          }
+
+          let messageErrors = [];
+          message.tests.forEach(testmessage => {
+            let testType = Object.keys(testmessage)[0];
+            let testVal = testmessage[testType];
             console.log(`test ${testType} ${testVal}`);
             // contains
             if (testType == 'contains' && !msg.text.includes(testVal)) {
-              failed.push(`ответ не содержит "${testVal}"`);
+              messageErrors.push(`ответ не содержит "${testVal}"`);
               return;
             }
 
             // not contains
             if (testType == 'not_contains' && msg.text.includes(testVal)) {
-              failed.push(`ответ содержит "${testVal}", но не должен`);
+              messageErrors.push(`ответ содержит "${testVal}", но не должен`);
               return;
             }
           });
 
-          if (failed.length > 0) {
+          // found message errors
+          if (messageErrors.length > 0) {
+            isDialogErrors = true;
             commit(ADD_MESSAGE, {
               text: 'Тест не пройден:\n' + failed.join('\n'),
               author: 'yandex-gialogs-client',
               class: 'error'
             });
-            return;
+            break;
           }
         }
+        // end of message
+      }
 
-        // send
+      if (isDialogErrors) isAllErrors = true;
+      if (!isDialogErrors) {
+        commit(ADD_MESSAGE, {
+          text: `Тест пройден`,
+          author: 'yandex-gialogs-client',
+          class: 'success'
+        });
+      }
+      // end of dialog
+    }
+
+    if (dialogs.length > 1) {
+      if (isAllErrors) {
+        commit(ADD_MESSAGE, {
+          text: 'Не все тесты пройдены :(',
+          author: 'yandex-gialogs-client',
+          class: 'error'
+        });
       } else {
         commit(ADD_MESSAGE, {
-          text: item,
-          author: AUTHOR_NAME
+          text: 'Все тесты пройдены: ' + dialogs.length,
+          author: 'yandex-gialogs-client',
+          class: 'success'
         });
-        await dispatch(ALICE_REQUEST, item);
       }
-      isUser = !isUser;
     }
-    commit(ADD_MESSAGE, {
-      text: `Тест пройден`,
-      author: 'yandex-gialogs-client',
-      class: 'success'
-    });
+    // end of dialogs test
   }
 };
 
