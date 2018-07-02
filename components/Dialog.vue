@@ -59,6 +59,7 @@ import {
   SET_WEBHOOK_URL,
   SET_WEBHOOK_URLS,
   SET_IS_BOTTOM_TESTS,
+  SET_IS_CONSOLE_REQUESTS,
   ADD_MESSAGE,
   AUTHOR_NAME,
   SESSION_START
@@ -168,6 +169,10 @@ export default {
     this.$store.commit(SET_WEBHOOK_URLS, this.getWebhookURLs());
     this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
     this.$store.commit(SET_IS_BOTTOM_TESTS, JSON.parse(localStorage.getItem('isBottomTests')));
+    this.$store.commit(
+      SET_IS_CONSOLE_REQUESTS,
+      JSON.parse(localStorage.getItem('isConsoleRequests'))
+    );
   },
 
   // scroll to messages bottom on messages updated

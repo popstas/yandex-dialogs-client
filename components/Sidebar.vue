@@ -15,6 +15,10 @@
     </el-row>
 
     <el-row>
+      <el-switch active-text="Показывать JSON в консоли" v-model="isConsoleRequests"></el-switch>
+    </el-row>
+
+    <el-row>
       <a class="app-link" :href="$store.state.homepage" target="_blank">
         <icon name="brands/github"></icon>
         {{ $store.state.name }} {{ $store.state.version }}
@@ -62,7 +66,7 @@
 
 <script>
 import 'vue-awesome/icons/brands/github';
-import { SET_IS_PROXY, SET_IS_BOTTOM_TESTS } from '~/store';
+import { SET_IS_PROXY, SET_IS_BOTTOM_TESTS, SET_IS_CONSOLE_REQUESTS } from '~/store';
 import MessageButton from '~/components/MessageButton';
 
 export default {
@@ -88,6 +92,15 @@ export default {
       },
       set(val) {
         this.$store.commit('SET_IS_BOTTOM_TESTS', val);
+      }
+    },
+
+    isConsoleRequests: {
+      get() {
+        return this.$store.state.isConsoleRequests;
+      },
+      set(val) {
+        this.$store.commit('SET_IS_CONSOLE_REQUESTS', val);
       }
     },
 

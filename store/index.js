@@ -5,6 +5,7 @@ export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
 export const SET_IS_PROXY = 'SET_IS_PROXY';
 export const SET_IS_BOTTOM_TESTS = 'SET_IS_BOTTOM_TESTS';
+export const SET_IS_CONSOLE_REQUESTS = 'SET_IS_CONSOLE_REQUESTS';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_SESSION_ID = 'SET_SESSION_ID';
 export const SET_SESSION_NEW = 'SET_SESSION_NEW';
@@ -60,6 +61,7 @@ export const state = () => ({
   // app state
   isProxy: process.env.isProxy,
   isBottomTests: false,
+  isConsoleRequests: false,
   userId: '',
   sessionId: '',
   sessionNew: true,
@@ -77,7 +79,11 @@ export const mutations = {
   [SET_IS_BOTTOM_TESTS](state, isBottomTests) {
     state.isBottomTests = isBottomTests;
     localStorage.setItem('isBottomTests', isBottomTests);
-    console.log(localStorage.getItem('isBottomTests'));
+  },
+
+  [SET_IS_CONSOLE_REQUESTS](state, isConsoleRequests) {
+    state.isConsoleRequests = isConsoleRequests;
+    localStorage.setItem('isConsoleRequests', isConsoleRequests);
   },
 
   [SET_USER_ID](state, userId) {
@@ -189,15 +195,19 @@ export const actions = {
     try {
       if (state.webhookURL) {
         let responseData;
-        expandedLog({ request: data });
-        console.log('\n');
+        if (state.isConsoleRequests) {
+          expandedLog({ request: data });
+          console.log('\n');
+        }
         if (state.isProxy) {
           responseData = await this.$axios.$post('/api/request', axiosData);
         } else {
           responseData = await this.$axios.$post(state.webhookURL, data);
         }
-        expandedLog({ response: responseData });
-        console.log('\n\n\n\n\n');
+        if (state.isConsoleRequests) {
+          expandedLog({ response: responseData });
+          console.log('\n\n\n\n\n');
+        }
 
         commit(ADD_MESSAGE, {
           text: responseData.response.text,
