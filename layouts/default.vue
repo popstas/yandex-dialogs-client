@@ -109,6 +109,21 @@ html {
 <script>
 import Sidebar from '~/components/Sidebar';
 export default {
-  components: { Sidebar }
+  components: { Sidebar },
+  head() {
+    return {
+      title: this.title
+    };
+  },
+
+  computed: {
+    title() {
+      return (
+        (this.$store.state.webhookURL ? this.$store.state.webhookURL + ' - ' : '') +
+        'yandex-dialogs-client ' +
+        this.$store.state.version
+      );
+    }
+  }
 };
 </script>
