@@ -390,13 +390,19 @@ export const actions = {
               messageErrors.push(`ответ содержит "${testVal}", но не должен`);
               return;
             }
+
+            // not contains
+            if (testType == 'one_of' && testVal.indexOf(msg.text) == -1) {
+              messageErrors.push('не соответствует ни одному из ответов: ' + testVal.join(', '));
+              return;
+            }
           });
 
           // found message errors
           if (messageErrors.length > 0) {
             isDialogErrors = true;
             commit(ADD_MESSAGE, {
-              text: 'Тест не пройден:\n' + failed.join('\n'),
+              text: 'Тест не пройден:\n' + messageErrors.join('\n'),
               author: 'yandex-gialogs-client',
               class: 'error'
             });
