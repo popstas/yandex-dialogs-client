@@ -4,8 +4,11 @@ services:
   yandex-dialogs-client:
     image: popstas/yandex-dialogs-client
     build: .
+    restart: always
     environment:
-      BASE_URL: https://dialogs.home.popstas.ru # default http://localhost:3000
-      IS_PROXY: 1
+      BASE_URL: ${BASE_URL}
+      IS_PROXY: ${IS_PROXY}
+      SPEECH_ENGINE: ${SPEECH_ENGINE}
+      YANDEX_WEBSPEECH_KEY: ${YANDEX_WEBSPEECH_KEY}
     ports:
       - 3856:3000

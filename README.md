@@ -107,10 +107,15 @@ docker run --name yandex-dialogs-client -d -p 3000:3000 popstas/yandex-dialogs-c
 ```
 
 #### Запуск через Docker compose
-
 ```
 git clone https://github.com/popstas/yandex-dialogs-client.git
 cd yandex-dialogs-client
+cp .env.sample .env
+```
+
+Нужно скопировать `.env.sample` в `.env` и заполнить. После этого собрать и поднять:
+
+```
 docker-compose build
 docker-compose up -d
 ```
