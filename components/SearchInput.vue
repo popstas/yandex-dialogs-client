@@ -88,6 +88,10 @@ export default {
 
     yandexAPIKey() {
       return this.$store.state.yandexAPIKey;
+    },
+
+    messages() {
+      return this.$store.state.messages;
     }
   },
 
