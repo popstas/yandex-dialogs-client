@@ -213,7 +213,8 @@ export const actions = {
           text: responseData.response.text,
           buttons: responseData.response.buttons,
           end_session: responseData.response.end_session,
-          author: 'Робот'
+          author: 'Робот',
+          class: 'answer'
         });
 
         if (responseData.response.end_session) {

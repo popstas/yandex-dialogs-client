@@ -18,6 +18,7 @@
 .message {
   margin-top: calc(1rem + 8px);
   margin-bottom: 15px;
+  box-shadow: none !important;
   text-align: left;
   float: left;
   transition: none;
@@ -26,6 +27,7 @@
     margin-top: 0;
     .el-card__header {
       display: block;
+      background: none;
     }
   }
   .el-card__header {
@@ -36,11 +38,17 @@
     color: #999;
   }
   .el-card__body {
-    padding: 5px;
+    padding: 5px 10px;
   }
 
   &_my {
     float: right;
+    background: #FFE478;
+    border-radius: 20px 20px 0 20px;
+  }
+  &_answer {
+    background: #F0F2F5;
+    border-radius: 0 20px 20px 20px;
   }
   &_info {
     border-left: 3px solid #17a2b8;
