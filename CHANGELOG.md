@@ -1,3 +1,18 @@
+<a name="0.7.1"></a>
+## [0.7.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.0...v0.7.1) (2018-07-07)
+
+
+### Bug Fixes
+
+* включение микрофона после ответа бота ([0b0f9b5](https://github.com/popstas/yandex-dialogs-client/commit/0b0f9b5))
+
+
+### Features
+
+* прямая ссылка на запуск конкретного навыка ([69ce07f](https://github.com/popstas/yandex-dialogs-client/commit/69ce07f))
+
+
+
 <a name="0.7.0"></a>
 # [0.7.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.6.1...v0.7.0) (2018-07-07)
 
