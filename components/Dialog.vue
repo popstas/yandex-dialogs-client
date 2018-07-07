@@ -167,7 +167,11 @@ export default {
     this.$store.commit(SET_USER_ID, this.getUserId());
     this.$store.dispatch(SESSION_START);
     this.$store.commit(SET_WEBHOOK_URLS, this.getWebhookURLs());
-    this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
+    if (this.$route.query.use) {
+      this.$store.dispatch(SET_WEBHOOK_URL, this.$route.query.use);
+    } else {
+      this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
+    }
     this.$store.commit(SET_IS_BOTTOM_TESTS, JSON.parse(localStorage.getItem('isBottomTests')));
     this.$store.commit(
       SET_IS_CONSOLE_REQUESTS,
