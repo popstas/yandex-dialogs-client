@@ -1,3 +1,16 @@
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.6.1...v0.7.0) (2018-07-07)
+
+
+### Features
+
+* вывод кнопок тестов на проваленных тестах ([c34b215](https://github.com/popstas/yandex-dialogs-client/commit/c34b215))
+* оформление в стиле Алисы ([2c6d4d3](https://github.com/popstas/yandex-dialogs-client/commit/2c6d4d3))
+* распознавание через yandex speech api ([7b71705](https://github.com/popstas/yandex-dialogs-client/commit/7b71705))
+* тест рандомного ответа one_of ([52ea6a8](https://github.com/popstas/yandex-dialogs-client/commit/52ea6a8))
+
+
+
 <a name="0.6.1"></a>
 ## [0.6.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.6.0...v0.6.1) (2018-07-02)
 
