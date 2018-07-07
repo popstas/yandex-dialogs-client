@@ -1,12 +1,16 @@
+<!-- speechEngine: browser, yandex -->
 <template>
   <div class="search-input">
-    <button :class="{'speech-toggle':true, 'search-input__speech-toggle':true, active: isSpeechRunning}" @click="speechToggle" slot="suffix">
+    <button :class="{'speech-toggle':true, 'search-input__speech-toggle':true, active: isSpeechRunning}"
+            @click="speechToggle" slot="suffix"
+    >
       <icon v-if="recognition" name="microphone"
-        class="el-icon-speech el-input__icon"
-        :style="{ transform: 'scale(' + volumeScale +')' }"></icon>
+            class="el-icon-speech el-input__icon"
+            :style="{ transform: 'scale(' + volumeScale +')' }"></icon>
     </button>
 
-    <el-input ref="input" v-model="q" clearable autofocus @keydown.native.enter="submit" @keydown.native.up="$emit('up')" @keyup.native.down="$emit('down')">
+    <el-input ref="input" v-model="q" clearable autofocus
+              @keydown.native.enter="submit" @keydown.native.up="$emit('up')" @keyup.native.down="$emit('down')">
     </el-input>
   </div>
 </template>
@@ -42,7 +46,12 @@
 
 <script>
 import 'vue-awesome/icons/microphone';
+// import webspeechkit from '~/assets/webspeechkit';
+// import webspeechkitSettings from '~/assets/webspeechkit-settings';
+// import SpeechRecognition from '~/assets/speechrecognition';
+// import Speech from '~/components/Speech';
 export default {
+  // components: { Speech },
   props: {
     value: {
       default: ''
@@ -55,6 +64,7 @@ export default {
       q: this.value,
       recognition: false,
       isSpeechRunning: false,
+      isSpeechWillStart: false,
       runtimeTranscription: '',
       transcription: [],
       volume: 0,
@@ -66,8 +76,18 @@ export default {
   computed: {
     volumeScale() {
       let vol = this.volume;
-      if (this.volume < 0.01) vol = 0;
+      if (this.volume < 0.01) {
+        vol = 0;
+      }
       return Math.min(1.5, 1 + vol * 10);
+    },
+
+    speechEngine() {
+      return this.$store.state.speechEngine;
+    },
+
+    yandexAPIKey() {
+      return this.$store.state.yandexAPIKey;
     }
   },
 
@@ -78,6 +98,10 @@ export default {
 
     q(val) {
       this.$emit('input', val);
+    },
+
+    messages(messages) {
+      this.onMessagesChange(messages);
     }
   },
 
@@ -87,9 +111,61 @@ export default {
       this.q = '';
     },
 
-    async speechStart() {
-      console.log('speech start');
-      if (!this.recognition) return;
+    onMessagesChange(messages) {
+      if (!this.isSpeechWillStart) {
+        return;
+      }
+      const last = messages[messages.length - 1];
+      if (last.author == 'Робот') {
+        this.isSpeechWillStart = false; // флаг ставит яндекс при распознавании
+        this.speechStart();
+      }
+    },
+
+    speechStart() {
+      const engines = {
+        browser: this.speechStartBrowser,
+        yandex: this.speechStartYandex
+      };
+      engines[this.speechEngine]();
+    },
+
+    speechStartYandex() {
+      if (this.isSpeechRunning) {
+        return;
+      }
+      if (!this.recognition) {
+        return;
+      }
+      this.isSpeechRunning = true;
+
+      // volume listener, https://github.com/cwilso/volume-meter/blob/master/volume-meter.js
+      navigator.getUserMedia({ video: false, audio: true }, this.onGetUserMedia, err => {
+        console.log('Ошибка доступа к микрофону, возможно, вы запретили его использование.', err);
+      });
+
+      ya.speechkit.recognize({
+        apikey: this.yandexAPIKey,
+        utteranceSilence: 60, // длина тишины перед окончанием
+
+        doneCallback: this.onSpeechEndYandex,
+
+        initCallback: function() {
+          this.isSpeechRunning = true;
+        },
+
+        errorCallback: async err => {
+          await this.speechStop();
+          console.log('Возникла ошибка при запросе к yandex: ' + err);
+        }
+      });
+    },
+
+    async speechStartBrowser() {
+      // console.log('speech start');
+      if (!this.recognition) {
+        return;
+      }
       await this.speechStop();
       this.recognition.start();
       this.isSpeechRunning = true;
@@ -101,7 +177,27 @@ export default {
     },
 
     async speechStop() {
-      if (this.recognition) this.recognition.stop();
+      const engines = {
+        browser: this.speechStopBrowser,
+        yandex: this.speechStopYandex
+      };
+      await engines[this.speechEngine]();
+    },
+
+    async speechStopYandex() {
+      if (this.audioContext) {
+        try {
+          await this.audioContext.close();
+        } catch (err) {}
+      }
+      this.volume = 0;
+      this.isSpeechRunning = false;
+    },
+
+    async speechStopBrowser() {
+      if (this.recognition) {
+        this.recognition.stop();
+      }
       if (this.audioContext) {
         try {
           await this.audioContext.close();
@@ -115,11 +211,29 @@ export default {
       return this.isSpeechRunning ? this.speechStop() : this.speechStart();
     },
 
-    async onSpeechEnd() {
-      console.log('speech end', this.runtimeTranscription);
+    async onSpeechEndYandex(text) {
+      if (!this.isSpeechRunning) {
+        return;
+      }
+      if (text === '') {
+        return;
+      }
       await this.speechStop();
-      if (!this.runtimeTranscription) return;
-      if (this.runtimeTranscription == this.lastInput) return;
+      this.isSpeechWillStart = true; // включить микрофон снова после получения ответа
+      this.q = text;
+      this.lastInput = this.q;
+      this.submit();
+    },
+
+    async onSpeechEndBrowser() {
+      // console.log('speech end', this.runtimeTranscription);
+      await this.speechStop();
+      if (!this.runtimeTranscription) {
+        return;
+      }
+      if (this.runtimeTranscription == this.lastInput) {
+        return;
+      }
 
       this.transcription.push(this.runtimeTranscription);
       this.q = this.runtimeTranscription;
@@ -128,7 +242,21 @@ export default {
       this.speechStart();
     },
 
-    checkSpeechApi() {
+    initSpeechApi() {
+      console.log('Init speech API: ', this.speechEngine);
+      const engines = {
+        browser: this.speechInitBrowser,
+        yandex: this.speechInitYandex
+      };
+      engines[this.speechEngine]();
+    },
+
+    speechInitYandex() {
+      // TODO: detect recognition available
+      this.recognition = true;
+    },
+
+    speechInitBrowser() {
       window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
         return;
@@ -140,7 +268,7 @@ export default {
       recognition.interimResults = false;
 
       recognition.addEventListener('result', event => {
-        console.log('speech result', event.results);
+        // console.log('speech result', event.results);
         const text = Array.from(event.results)
           .map(result => result[0])
           .map(result => result.transcript)
@@ -148,7 +276,7 @@ export default {
         this.runtimeTranscription = text;
       });
 
-      recognition.addEventListener('end', this.onSpeechEnd);
+      recognition.addEventListener('end', this.onSpeechEndBrowser);
       this.recognition = recognition;
     },
 
@@ -174,7 +302,9 @@ export default {
       processor.connect(audioContext.destination);
 
       processor.checkClipping = function() {
-        if (!this.clipping) return false;
+        if (!this.clipping) {
+          return false;
+        }
         if (this.lastClip + this.clipLag < window.performance.now()) {
           this.clipping = false;
         }
@@ -213,7 +343,7 @@ export default {
   },
 
   mounted() {
-    this.checkSpeechApi();
+    this.initSpeechApi();
   },
 
   destroyed() {

@@ -19,7 +19,7 @@
     </el-row>
 
     <el-row>
-      <a class="app-link" :href="$store.state.homepage" target="_blank">
+      <a class="app-link" :href="$store.state.homepage + '/blob/master/CHANGELOG.md'" target="_blank">
         <icon name="brands/github"></icon>
         {{ $store.state.name }} {{ $store.state.version }}
       </a>

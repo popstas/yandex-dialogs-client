@@ -6,7 +6,9 @@ module.exports = {
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     production: process.env.NODE_ENV === "production",
-    isProxy: process.env.IS_PROXY === "1"
+    isProxy: process.env.IS_PROXY === "1",
+    speechEngine: process.env.SPEECH_ENGINE || 'browser',
+    yandexAPIKey: process.env.YANDEX_WEBSPEECH_KEY
   },
 
   modules: [
@@ -46,6 +48,10 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+
+    script: [
+      { src: 'https://webasr.yandex.net/jsapi/v1/webspeechkit.js' }
     ]
   },
   /*

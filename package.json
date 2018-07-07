@@ -2,6 +2,7 @@
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3003 nuxt",
     "dev-proxy": "cross-env IS_PROXY=1 HOST=0.0.0.0 PORT=3003 nuxt",
+    "dev-yandex": "cross-env IS_PROXY=1 SPEECH_ENGINE=yandex HOST=0.0.0.0 PORT=3003 nuxt",
     "dev-debug": "node --inspect node_modules/.bin/nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
@@ -27,8 +28,7 @@
     "style-loader": "^0.21.0",
     "vue-awesome": "^3.0.0",
     "vue-slideout": "^1.7.0",
-    "vue-style-loader": "^4.1.0",
-    "yandex-speech": "0.0.13"
+    "vue-style-loader": "^4.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

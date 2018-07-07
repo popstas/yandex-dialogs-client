@@ -62,6 +62,8 @@ export const state = () => ({
   isProxy: process.env.isProxy,
   isBottomTests: false,
   isConsoleRequests: false,
+  speechEngine: process.env.speechEngine,
+  yandexAPIKey: process.env.yandexAPIKey,
   userId: '',
   sessionId: '',
   sessionNew: true,
