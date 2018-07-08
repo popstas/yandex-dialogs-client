@@ -60,6 +60,7 @@ export const state = () => ({
 
   // app state
   isProxy: process.env.isProxy,
+  timeout: 2000,
   isBottomTests: false,
   isConsoleRequests: false,
   speechEngine: process.env.speechEngine,
@@ -208,9 +209,9 @@ export const actions = {
           console.log('\n');
         }
         if (state.isProxy) {
-          responseData = await this.$axios.$post('/api/request', axiosData);
+          responseData = await this.$axios.$post('/api/request', axiosData, { timeout: state.timeout });
         } else {
-          responseData = await this.$axios.$post(state.webhookURL, data);
+          responseData = await this.$axios.$post(state.webhookURL, data, { timeout: state.timeout });
         }
         if (state.isConsoleRequests) {
           expandedLog({ response: responseData });
@@ -236,8 +237,9 @@ export const actions = {
         });
       }
     } catch (err) {
+      const textPost = err.message.match(/timeout/) ? 'не ответил вовремя' : 'см. консоль';
       commit(ADD_MESSAGE, {
-        text: 'Ошибка запроса к ' + state.webhookURL + ' (см. консоль)',
+        text: `Ошибка запроса к ${state.webhookURL} (${textPost})`,
         author: '',
         class: 'error'
       });
