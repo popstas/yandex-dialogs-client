@@ -1,3 +1,23 @@
+<a name="0.8.0"></a>
+# [0.8.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.2...v0.8.0) (2018-07-08)
+
+
+### Bug Fixes
+
+* правильная обработка удаления текущего webhookURL ([4a71fd5](https://github.com/popstas/yandex-dialogs-client/commit/4a71fd5))
+* убраны скакания верстки при наведении, на некоторых зумах ([7349d69](https://github.com/popstas/yandex-dialogs-client/commit/7349d69))
+
+
+### Features
+
+* возможность отменить все навыки через "use " ([aee7e1b](https://github.com/popstas/yandex-dialogs-client/commit/aee7e1b))
+* кнопки "повторить" на каждом пройденном тесте ([01da90b](https://github.com/popstas/yandex-dialogs-client/commit/01da90b))
+* переверстаны карточки, меньше рамок и заливок ([c8efd84](https://github.com/popstas/yandex-dialogs-client/commit/c8efd84))
+* статус теста на кнопке цветом ([49ea6eb](https://github.com/popstas/yandex-dialogs-client/commit/49ea6eb))
+* ширина приложения сделана более узкой, 480px ([59f8d5c](https://github.com/popstas/yandex-dialogs-client/commit/59f8d5c))
+
+
+
 <a name="0.7.2"></a>
 ## [0.7.2](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.1...v0.7.2) (2018-07-08)
 
