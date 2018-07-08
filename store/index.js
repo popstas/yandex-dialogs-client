@@ -148,8 +148,8 @@ export const getters = {
   },
 
   lastBotMessage(state) {
-    for(let i = state.messages.length - 1; i >= 0; i--){
-      if(state.messages[i].author == 'Робот') return state.messages[i];
+    for (let i = state.messages.length - 1; i >= 0; i--) {
+      if (state.messages[i].author == 'Робот') return state.messages[i];
     }
   }
 };
@@ -209,9 +209,13 @@ export const actions = {
           console.log('\n');
         }
         if (state.isProxy) {
-          responseData = await this.$axios.$post('/api/request', axiosData, { timeout: state.timeout });
+          responseData = await this.$axios.$post('/api/request', axiosData, {
+            timeout: state.timeout
+          });
         } else {
-          responseData = await this.$axios.$post(state.webhookURL, data, { timeout: state.timeout });
+          responseData = await this.$axios.$post(state.webhookURL, data, {
+            timeout: state.timeout
+          });
         }
         if (state.isConsoleRequests) {
           expandedLog({ response: responseData });
@@ -248,23 +252,18 @@ export const actions = {
   },
 
   async [SET_WEBHOOK_URL]({ dispatch, commit, state }, url) {
-    if (!url) {
-      commit(ADD_MESSAGE, {
-        text: 'Не указан адрес навыка, пожалуйста, введите его так: use https://localhost:1234',
-        author: '',
-        class: 'warning'
-      });
-      return;
-    }
-
     commit(SET_WEBHOOK_URL, url);
     commit(ADD_WEBHOOK_URL, url);
-    commit(ADD_MESSAGE, {
-      text:
-        'Используется навык по адресу ' + url + (state.isProxy ? ', через прокси' : ', без прокси'),
-      author: 'yandex-dialogs-client',
-      class: 'info'
-    });
+    if (url) {
+      commit(ADD_MESSAGE, {
+        text:
+          'Используется навык по адресу ' +
+          url +
+          (state.isProxy ? ', через прокси' : ', без прокси'),
+        author: 'yandex-dialogs-client',
+        class: 'info'
+      });
+    }
     dispatch(ALICE_REQUEST, '');
 
     // scenarios.yml
@@ -356,7 +355,7 @@ export const actions = {
 
         // simple equals string
         if (typeof message === 'string') {
-          if(verbose) console.log(`test ${msg.text} == ${message}`);
+          if (verbose) console.log(`test ${msg.text} == ${message}`);
           if (msg.text != message) {
             isDialogErrors = true;
             commit(ADD_MESSAGE, {
@@ -390,7 +389,7 @@ export const actions = {
           message.tests.forEach(testmessage => {
             let testType = Object.keys(testmessage)[0];
             let testVal = testmessage[testType];
-            if(verbose) console.log(`test ${testType} ${testVal}`);
+            if (verbose) console.log(`test ${testType} ${testVal}`);
             // contains
             if (testType == 'contains' && !msg.text.includes(testVal)) {
               messageErrors.push(`ответ не содержит "${testVal}"`);
