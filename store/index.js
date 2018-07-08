@@ -119,6 +119,7 @@ export const mutations = {
     state.webhookURLs = webhookURLs;
   },
 
+  // last webhookURLs
   [ADD_WEBHOOK_URL](state, webhookURL) {
     if (state.webhookURLs.indexOf(webhookURL) == -1) {
       state.webhookURLs.push(webhookURL);
@@ -252,6 +253,9 @@ export const actions = {
   },
 
   async [SET_WEBHOOK_URL]({ dispatch, commit, state }, url) {
+    if(!url || url == 'null'){
+      url = '';
+    }
     commit(SET_WEBHOOK_URL, url);
     commit(ADD_WEBHOOK_URL, url);
     if (url) {

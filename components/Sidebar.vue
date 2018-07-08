@@ -30,7 +30,7 @@
       <ul class="webhooks-buttons">
         <li v-for="webhookURL in webhookURLs" :key="webhookURL">
           <MessageButton
-            :title="webhookURL" :value="'use ' + webhookURL"></MessageButton>
+            :title="webhookURL || 'x'" :value="'use ' + webhookURL"></MessageButton>
         </li>
       </ul>
     </el-row>
