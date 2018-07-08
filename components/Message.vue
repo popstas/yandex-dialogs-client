@@ -5,7 +5,9 @@
       <el-button v-if="isMy" title="resend" class="message__resend" icon="el-icon-refresh" @click="resend"></el-button>
     </div>
 
-    <div class="message__text" v-html="text"></div>
+    <div class="message__text-wrap">
+      <div class="message__text" v-html="text"></div>
+    </div>
 
     <div class="message__buttons">
       <MessageButton class="message__button" v-for="button in message.buttons" :key="button.title"
@@ -16,7 +18,7 @@
 
 <style lang="scss">
 .message {
-  margin-top: calc(1rem + 8px);
+  margin-top: 15px;
   margin-bottom: 15px;
   box-shadow: none !important;
   border: none;
@@ -24,21 +26,21 @@
   text-align: left;
   float: left;
   transition: none;
+  overflow: visible;
 
   &:hover {
-    margin-top: 0;
     .el-card__header {
-      display: block;
+      opacity: 1;
     }
   }
   .el-card__header {
-    display: none;
+    opacity: 0;
     padding: 2px 10px;
     border: none;
 
     .el-button:hover {
       background: none;
-      color: #fff;
+      color: #999;
     }
   }
   .el-card__body {
@@ -48,11 +50,18 @@
   &__text {
     padding: 5px 10px;
     border-radius: 20px;
+    display: inline-block;
+
+    &-wrap {
+      border-left: 3px solid #fff;
+      margin-left: -3px;
+    }
   }
 
   &_my {
     float: right;
     .message__text {
+      float: right;
       background: #ffe478;
       border-bottom-right-radius: 0;
     }
@@ -63,17 +72,17 @@
       border-top-left-radius: 0;
     }
   }
-  &_info {
-    border-left: 3px solid #17a2b8;
+  &_info .message__text-wrap {
+    border-left-color: #17a2b8;
   }
-  &_success {
-    border-left: 3px solid #28a745;
+  &_success .message__text-wrap {
+    border-left-color: #28a745;
   }
-  &_warning {
-    border-left: 3px solid #ffc107;
+  &_warning .message__text-wrap {
+    border-left-color: #ffc107;
   }
-  &_error {
-    border-left: 3px solid #dc3545;
+  &_error .message__text-wrap {
+    border-left-color: #dc3545;
   }
 
   &__date {
