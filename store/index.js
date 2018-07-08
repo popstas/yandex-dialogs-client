@@ -113,7 +113,6 @@ export const mutations = {
   [SET_TEST_SUCCESS](state, { name, success }) {
     const found = state.tests.find(test => test.name === name);
     if (found) found.success = success;
-    console.log('found: ', found);
   },
 
   [SET_WEBHOOK_URL](state, webhookURL) {
@@ -256,7 +255,9 @@ export const actions = {
         class: 'error'
       });
       console.error(err);
+      return false;
     }
+    return true;
   },
 
   async [SET_WEBHOOK_URL]({ dispatch, commit, state }, url) {
@@ -367,7 +368,11 @@ export const actions = {
             text: message,
             author: AUTHOR_NAME
           });
-          await dispatch(ALICE_REQUEST, message);
+          const result = await dispatch(ALICE_REQUEST, message);
+          if (!result) {
+            isDialogErrors = true;
+            break;
+          }
           isUser = !isUser;
           continue;
         }
