@@ -293,8 +293,8 @@ export const actions = {
       });
 
       commit(ADD_MESSAGE, {
-        text: 'У навыка есть scenarios.yml, в нем есть следующие сценарии:',
-        buttons: buttons,
+        text: 'У навыка есть scenarios.yml, в нем есть следующие сценарии (' + state.tests.length + '):',
+        buttons: state.isBottomTests ? [] : buttons,
         author: 'yandex-dialogs-client',
         class: 'info'
       });
