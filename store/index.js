@@ -299,7 +299,7 @@ export const actions = {
         class: 'info'
       });
     } catch (err) {
-      console.error(err);
+      //console.error(err);
       // it's normal
     }
   },
@@ -321,6 +321,7 @@ export const actions = {
 
   async [RUN_TEST]({ dispatch, getters, commit }, dialogs) {
     let allFailedTests = [];
+    const verbose = false;
 
     // test suites (one dialog - one button)
     for (let d in dialogs) {
@@ -355,7 +356,7 @@ export const actions = {
 
         // simple equals string
         if (typeof message === 'string') {
-          console.log(`test ${msg.text} == ${message}`);
+          if(verbose) console.log(`test ${msg.text} == ${message}`);
           if (msg.text != message) {
             isDialogErrors = true;
             commit(ADD_MESSAGE, {
@@ -389,7 +390,7 @@ export const actions = {
           message.tests.forEach(testmessage => {
             let testType = Object.keys(testmessage)[0];
             let testVal = testmessage[testType];
-            console.log(`test ${testType} ${testVal}`);
+            if(verbose) console.log(`test ${testType} ${testVal}`);
             // contains
             if (testType == 'contains' && !msg.text.includes(testVal)) {
               messageErrors.push(`ответ не содержит "${testVal}"`);

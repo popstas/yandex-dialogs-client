@@ -6,7 +6,7 @@
           <Message :message="message"></Message>
         </el-row>
       </el-row>
-      <div class="dialog__tests" v-if="tests && $store.state.isBottomTests">
+      <div class="dialog__tests" v-if="tests.length > 0 && $store.state.isBottomTests">
         <MessageButton class="message__button" v-for="dialog in tests" :key="dialog.name"
           :title="dialog.name" :payload="JSON.stringify({ scenarios_test: [dialog] })"></MessageButton>
         <MessageButton class="message__button" title="все тесты" :payload="JSON.stringify({ scenarios_test: tests })"></MessageButton>
