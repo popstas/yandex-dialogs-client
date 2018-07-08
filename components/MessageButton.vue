@@ -1,9 +1,9 @@
 <template>
-  <el-button class="dialog-button" round v-html="text" @click="onClick"></el-button>
+  <el-button class="message-button" round v-html="text" @click="onClick"></el-button>
 </template>
 
 <style lang="scss">
-.dialog-button {
+.message-button {
   margin: 3px !important;
   padding: 3px 6px !important;
   font-size: 10px;
@@ -12,6 +12,14 @@
   &:hover {
     background: none;
     color: #999;
+  }
+
+  &_success {
+    border-left-color: #28a745;
+  }
+
+  &_error {
+    border-left-color: #dc3545;
   }
 }
 </style>

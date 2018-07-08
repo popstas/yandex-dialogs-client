@@ -18,6 +18,7 @@ export const SESSION_START = 'SESSION_START';
 export const SESSION_END = 'SESSION_END';
 export const RUN_TEST = 'RUN_TEST';
 export const SET_TESTS = 'SET_TESTS';
+export const SET_TEST_SUCCESS = 'SET_TEST_SUCCESS';
 
 export const AUTHOR_NAME = 'Я';
 
@@ -107,6 +108,12 @@ export const mutations = {
 
   [SET_TESTS](state, tests) {
     state.tests = tests;
+  },
+
+  [SET_TEST_SUCCESS](state, { name, success }) {
+    const found = state.tests.find(test => test.name === name);
+    if (found) found.success = success;
+    console.log('found: ', found);
   },
 
   [SET_WEBHOOK_URL](state, webhookURL) {
@@ -329,11 +336,16 @@ export const actions = {
     let allFailedTests = [];
     const verbose = false;
 
+    // clean buttons success colors
+    dialogs.forEach(dialog => {
+      commit(SET_TEST_SUCCESS, { name: dialog.name, success: null });
+    });
+
     // test suites (one dialog - one button)
     for (let d in dialogs) {
       const dialog = dialogs[d];
       const rerunButton = {
-        title: 'повторить тест',
+        title: `повторить "${dialog.name}"`,
         payload: JSON.stringify({ scenarios_test: [dialog] })
       };
       commit(ADD_MESSAGE, {
@@ -431,6 +443,7 @@ export const actions = {
         // end of message
       }
 
+      commit(SET_TEST_SUCCESS, { name: dialog.name, success: !isDialogErrors });
       if (isDialogErrors) allFailedTests.push(dialog);
       if (!isDialogErrors) {
         commit(ADD_MESSAGE, {
