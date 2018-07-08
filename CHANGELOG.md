@@ -1,3 +1,20 @@
+<a name="0.7.2"></a>
+## [0.7.2](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.1...v0.7.2) (2018-07-08)
+
+
+### Bug Fixes
+
+* тестилка иногда брала для проверки сообщение клиента ([a7d1c62](https://github.com/popstas/yandex-dialogs-client/commit/a7d1c62))
+* убрана кнопка "все тесты" при отсутствии scenarios.yml ([215bcbf](https://github.com/popstas/yandex-dialogs-client/commit/215bcbf))
+
+
+### Features
+
+* выдавать ошибку, если в течение 2 секунд от навыка не было ответа ([fb012da](https://github.com/popstas/yandex-dialogs-client/commit/fb012da))
+* тесты теперь не выводятся в сообщении, если они выводятся внизу ([2d1ccb9](https://github.com/popstas/yandex-dialogs-client/commit/2d1ccb9))
+
+
+
 <a name="0.7.1"></a>
 ## [0.7.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.0...v0.7.1) (2018-07-07)
 
