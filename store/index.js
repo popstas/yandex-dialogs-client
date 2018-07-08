@@ -292,7 +292,10 @@ export const actions = {
       });
 
       commit(ADD_MESSAGE, {
-        text: 'У навыка есть scenarios.yml, в нем есть следующие сценарии (' + state.tests.length + '):',
+        text:
+          'У навыка есть scenarios.yml, в нем есть следующие сценарии (' +
+          state.tests.length +
+          '):',
         buttons: state.isBottomTests ? [] : buttons,
         author: 'yandex-dialogs-client',
         class: 'info'
@@ -325,6 +328,10 @@ export const actions = {
     // test suites (one dialog - one button)
     for (let d in dialogs) {
       const dialog = dialogs[d];
+      const rerunButton = {
+        title: 'повторить тест',
+        payload: JSON.stringify({ scenarios_test: [dialog] })
+      };
       commit(ADD_MESSAGE, {
         text: `Тест: ${dialog.name}`,
         author: 'yandex-gialogs-client',
@@ -360,13 +367,8 @@ export const actions = {
             isDialogErrors = true;
             commit(ADD_MESSAGE, {
               text: `Тест не пройден:\nотвечено: ${msg.text}\nожидалось: ${message}`,
+              buttons: [rerunButton],
               author: 'yandex-gialogs-client',
-              buttons: [
-                {
-                  title: 'повторить тест',
-                  payload: JSON.stringify({ scenarios_test: [dialog] })
-                }
-              ],
               class: 'error'
             });
             break; // end test
@@ -379,6 +381,7 @@ export const actions = {
             isDialogErrors = true;
             commit(ADD_MESSAGE, {
               text: `Тест не пройден: в объекте ` + JSON.stringify(message) + 'нет поля tests',
+              buttons: [rerunButton],
               author: 'yandex-gialogs-client',
               class: 'error'
             });
@@ -414,6 +417,7 @@ export const actions = {
             isDialogErrors = true;
             commit(ADD_MESSAGE, {
               text: 'Тест не пройден:\n' + messageErrors.join('\n'),
+              buttons: [rerunButton],
               author: 'yandex-gialogs-client',
               class: 'error'
             });
@@ -427,6 +431,7 @@ export const actions = {
       if (!isDialogErrors) {
         commit(ADD_MESSAGE, {
           text: `Тест пройден`,
+          buttons: [rerunButton],
           author: 'yandex-gialogs-client',
           class: 'success'
         });
