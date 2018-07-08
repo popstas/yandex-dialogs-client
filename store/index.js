@@ -144,6 +144,12 @@ export const getters = {
       return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
     };
     return S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4();
+  },
+
+  lastBotMessage(state) {
+    for(let i = state.messages.length - 1; i >= 0; i--){
+      if(state.messages[i].author == 'Робот') return state.messages[i];
+    }
   }
 };
 
@@ -311,7 +317,7 @@ export const actions = {
     });
   },
 
-  async [RUN_TEST]({ dispatch, state, commit }, dialogs) {
+  async [RUN_TEST]({ dispatch, getters, commit }, dialogs) {
     let allFailedTests = [];
 
     // test suites (one dialog - one button)
@@ -343,7 +349,7 @@ export const actions = {
         isUser = !isUser;
 
         // check bot's answer
-        let msg = state.messages[state.messages.length - 1];
+        let msg = getters.lastBotMessage;
 
         // simple equals string
         if (typeof message === 'string') {
