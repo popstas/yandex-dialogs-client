@@ -7,6 +7,12 @@
   margin: 3px !important;
   padding: 3px 6px !important;
   font-size: 10px;
+  border-color: #d8e2f5;
+  color: #666;
+  &:hover {
+    background: none;
+    color: #999;
+  }
 }
 </style>
 

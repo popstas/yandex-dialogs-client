@@ -132,7 +132,7 @@ export const mutations = {
       ...message,
       ...{
         id: window.performance.now(),
-        date: new Date().toLocaleString()
+        date: new Date().toTimeString().split(' ')[0]
       }
     };
     state.messages.push(message);
@@ -237,7 +237,7 @@ export const actions = {
       } else {
         commit(ADD_MESSAGE, {
           text: 'Не указан адрес навыка, пожалуйста, введите его так: use https://localhost:1234',
-          author: 'yandex-dialogs-client',
+          author: 'Клиент',
           class: 'warning'
         });
       }
@@ -253,7 +253,7 @@ export const actions = {
   },
 
   async [SET_WEBHOOK_URL]({ dispatch, commit, state }, url) {
-    if(!url || url == 'null'){
+    if (!url || url == 'null') {
       url = '';
     }
     commit(SET_WEBHOOK_URL, url);
@@ -264,7 +264,7 @@ export const actions = {
           'Используется навык по адресу ' +
           url +
           (state.isProxy ? ', через прокси' : ', без прокси'),
-        author: 'yandex-dialogs-client',
+        author: 'Клиент',
         class: 'info'
       });
     }
@@ -301,7 +301,7 @@ export const actions = {
           state.tests.length +
           '):',
         buttons: state.isBottomTests ? [] : buttons,
-        author: 'yandex-dialogs-client',
+        author: 'Клиент',
         class: 'info'
       });
     } catch (err) {
@@ -320,7 +320,7 @@ export const actions = {
     dispatch(SESSION_START);
     commit(ADD_MESSAGE, {
       text: 'Сессия закончена',
-      author: 'yandex-gialogs-client',
+      author: 'Клиент',
       class: 'info'
     });
   },
@@ -338,7 +338,7 @@ export const actions = {
       };
       commit(ADD_MESSAGE, {
         text: `Тест: ${dialog.name}`,
-        author: 'yandex-gialogs-client',
+        author: 'Клиент',
         class: 'info'
       });
 
@@ -372,7 +372,7 @@ export const actions = {
             commit(ADD_MESSAGE, {
               text: `Тест не пройден:\nотвечено: ${msg.text}\nожидалось: ${message}`,
               buttons: [rerunButton],
-              author: 'yandex-gialogs-client',
+              author: 'Клиент',
               class: 'error'
             });
             break; // end test
@@ -386,7 +386,7 @@ export const actions = {
             commit(ADD_MESSAGE, {
               text: `Тест не пройден: в объекте ` + JSON.stringify(message) + 'нет поля tests',
               buttons: [rerunButton],
-              author: 'yandex-gialogs-client',
+              author: 'Клиент',
               class: 'error'
             });
             break;
@@ -422,7 +422,7 @@ export const actions = {
             commit(ADD_MESSAGE, {
               text: 'Тест не пройден:\n' + messageErrors.join('\n'),
               buttons: [rerunButton],
-              author: 'yandex-gialogs-client',
+              author: 'Клиент',
               class: 'error'
             });
             break;
@@ -436,7 +436,7 @@ export const actions = {
         commit(ADD_MESSAGE, {
           text: `Тест пройден`,
           buttons: [rerunButton],
-          author: 'yandex-gialogs-client',
+          author: 'Клиент',
           class: 'success'
         });
       }
@@ -460,14 +460,14 @@ export const actions = {
 
         commit(ADD_MESSAGE, {
           text: 'Не все тесты пройдены :(',
-          author: 'yandex-gialogs-client',
+          author: 'Клиент',
           buttons: buttons,
           class: 'error'
         });
       } else {
         commit(ADD_MESSAGE, {
           text: 'Все тесты пройдены: ' + dialogs.length,
-          author: 'yandex-gialogs-client',
+          author: 'Клиент',
           class: 'success'
         });
       }

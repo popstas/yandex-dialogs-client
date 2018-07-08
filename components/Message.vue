@@ -19,6 +19,8 @@
   margin-top: calc(1rem + 8px);
   margin-bottom: 15px;
   box-shadow: none !important;
+  border: none;
+  border-radius: 0;
   text-align: left;
   float: left;
   transition: none;
@@ -27,28 +29,39 @@
     margin-top: 0;
     .el-card__header {
       display: block;
-      background: none;
     }
   }
   .el-card__header {
     display: none;
-    padding: 2px 5px;
+    padding: 2px 10px;
     border: none;
-    background: #eee;
-    color: #999;
+
+    .el-button:hover {
+      background: none;
+      color: #fff;
+    }
   }
   .el-card__body {
+    padding: 0;
+  }
+
+  &__text {
     padding: 5px 10px;
+    border-radius: 20px;
   }
 
   &_my {
     float: right;
-    background: #FFE478;
-    border-radius: 20px 20px 0 20px;
+    .message__text {
+      background: #ffe478;
+      border-bottom-right-radius: 0;
+    }
   }
   &_answer {
-    background: #F0F2F5;
-    border-radius: 0 20px 20px 20px;
+    .message__text {
+      background: #f0f2f5;
+      border-top-left-radius: 0;
+    }
   }
   &_info {
     border-left: 3px solid #17a2b8;
@@ -77,7 +90,7 @@
 
   &__buttons {
     margin-top: 3px;
-    margin-left: -3px;
+    margin-left: 6px;
   }
 }
 </style>
