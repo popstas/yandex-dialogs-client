@@ -23,7 +23,7 @@
 </template>
 
 <style lang="scss">
-$container-width: 640px;
+$container-width: 480px;
 
 html {
   font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
