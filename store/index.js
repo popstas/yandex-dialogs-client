@@ -61,7 +61,7 @@ export const state = () => ({
 
   // app state
   isProxy: process.env.isProxy,
-  timeout: 2000,
+  timeout: 1500,
   isBottomTests: false,
   isConsoleRequests: false,
   speechEngine: process.env.speechEngine,
@@ -248,7 +248,7 @@ export const actions = {
         });
       }
     } catch (err) {
-      const textPost = err.message.match(/timeout/) ? 'не ответил вовремя' : 'см. консоль';
+      const textPost = err.message.match(/timeout/) ? 'не ответил за 1.5 сек' : 'см. консоль';
       commit(ADD_MESSAGE, {
         text: `Ошибка запроса к ${state.webhookURL} (${textPost})`,
         author: '',
@@ -371,6 +371,12 @@ export const actions = {
           const result = await dispatch(ALICE_REQUEST, message);
           if (!result) {
             isDialogErrors = true;
+            commit(ADD_MESSAGE, {
+              text: `Тест не пройден`,
+              buttons: [rerunButton],
+              author: 'Клиент',
+              class: 'error'
+            });
             break;
           }
           isUser = !isUser;
