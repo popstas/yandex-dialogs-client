@@ -24,7 +24,8 @@ module.exports = {
   plugins: [
     '~/plugins/element-ui',
     '~/plugins/vue-awesome',
-    { src: '~/plugins/vue-slideout', ssr: false }
+    { src: '~/plugins/vue-slideout', ssr: false },
+    { src: '~/plugins/localStorage.js', ssr: false }
   ],
 
   serverMiddleware: [

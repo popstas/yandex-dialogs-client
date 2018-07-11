@@ -28,7 +28,8 @@
     "style-loader": "^0.21.0",
     "vue-awesome": "^3.0.0",
     "vue-slideout": "^1.7.0",
-    "vue-style-loader": "^4.1.0"
+    "vue-style-loader": "^4.1.0",
+    "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.1",

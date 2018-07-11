@@ -66,7 +66,8 @@
 
 <script>
 import 'vue-awesome/icons/brands/github';
-import { SET_IS_PROXY, SET_IS_BOTTOM_TESTS, SET_IS_CONSOLE_REQUESTS } from '~/store';
+import { SET_IS_PROXY, SET_IS_CONSOLE_REQUESTS } from '~/store';
+import { SET_IS_BOTTOM_TESTS } from '~/store/settings';
 import MessageButton from '~/components/MessageButton';
 
 export default {
@@ -82,16 +83,16 @@ export default {
         return this.$store.state.isProxy;
       },
       set(val) {
-        this.$store.commit('SET_IS_PROXY', val);
+        this.$store.commit(SET_IS_PROXY, val);
       }
     },
 
     isBottomTests: {
       get() {
-        return this.$store.state.isBottomTests;
+        return this.$store.state.settings.isBottomTests;
       },
       set(val) {
-        this.$store.commit('SET_IS_BOTTOM_TESTS', val);
+        this.$store.commit(`settings/${SET_IS_BOTTOM_TESTS}`, val);
       }
     },
 
@@ -100,7 +101,7 @@ export default {
         return this.$store.state.isConsoleRequests;
       },
       set(val) {
-        this.$store.commit('SET_IS_CONSOLE_REQUESTS', val);
+        this.$store.commit(SET_IS_CONSOLE_REQUESTS, val);
       }
     },
 

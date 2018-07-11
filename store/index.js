@@ -4,7 +4,6 @@ import yaml from 'js-yaml';
 export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
 export const SET_IS_PROXY = 'SET_IS_PROXY';
-export const SET_IS_BOTTOM_TESTS = 'SET_IS_BOTTOM_TESTS';
 export const SET_IS_CONSOLE_REQUESTS = 'SET_IS_CONSOLE_REQUESTS';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_SESSION_ID = 'SET_SESSION_ID';
@@ -62,7 +61,6 @@ export const state = () => ({
   // app state
   isProxy: process.env.isProxy,
   timeout: 1500,
-  isBottomTests: false,
   isConsoleRequests: false,
   speechEngine: process.env.speechEngine,
   yandexAPIKey: process.env.yandexAPIKey,
@@ -75,14 +73,13 @@ export const state = () => ({
   tests: []
 });
 
+export const computed = {
+  settings: state => state.settings
+}
+
 export const mutations = {
   [SET_IS_PROXY](state, isProxy) {
     state.isProxy = isProxy;
-  },
-
-  [SET_IS_BOTTOM_TESTS](state, isBottomTests) {
-    state.isBottomTests = isBottomTests;
-    localStorage.setItem('isBottomTests', isBottomTests);
   },
 
   [SET_IS_CONSOLE_REQUESTS](state, isConsoleRequests) {
@@ -308,7 +305,7 @@ export const actions = {
           'У навыка есть scenarios.yml, в нем есть следующие сценарии (' +
           state.tests.length +
           '):',
-        buttons: state.isBottomTests ? [] : buttons,
+        buttons: state.settings.isBottomTests ? [] : buttons,
         author: 'Клиент',
         class: 'info'
       });

@@ -6,7 +6,7 @@
           <Message :message="message"></Message>
         </el-row>
       </el-row>
-      <div class="dialog__tests" v-if="tests.length > 0 && $store.state.isBottomTests">
+      <div class="dialog__tests" v-if="tests.length > 0 && $store.state.settings.isBottomTests">
         <MessageButton :class="{
             message__button: true,
             'message-button_success': dialog.success === true,
@@ -63,7 +63,6 @@ import {
   SET_USER_ID,
   SET_WEBHOOK_URL,
   SET_WEBHOOK_URLS,
-  SET_IS_BOTTOM_TESTS,
   SET_IS_CONSOLE_REQUESTS,
   ADD_MESSAGE,
   AUTHOR_NAME,
@@ -177,7 +176,6 @@ export default {
     } else {
       this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
     }
-    this.$store.commit(SET_IS_BOTTOM_TESTS, JSON.parse(localStorage.getItem('isBottomTests')));
     this.$store.commit(
       SET_IS_CONSOLE_REQUESTS,
       JSON.parse(localStorage.getItem('isConsoleRequests'))
