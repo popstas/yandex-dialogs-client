@@ -3,8 +3,6 @@ import yaml from 'js-yaml';
 
 export const SET_ANSWERS = 'SET_ANSWERS';
 export const ALICE_REQUEST = 'ALICE_REQUEST';
-export const SET_IS_PROXY = 'SET_IS_PROXY';
-export const SET_IS_CONSOLE_REQUESTS = 'SET_IS_CONSOLE_REQUESTS';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_SESSION_ID = 'SET_SESSION_ID';
 export const SET_SESSION_NEW = 'SET_SESSION_NEW';
@@ -59,9 +57,7 @@ export const state = () => ({
   homepage: pjson.homepage,
 
   // app state
-  isProxy: process.env.isProxy,
   timeout: 1500,
-  isConsoleRequests: false,
   speechEngine: process.env.speechEngine,
   yandexAPIKey: process.env.yandexAPIKey,
   userId: '',
@@ -75,18 +71,9 @@ export const state = () => ({
 
 export const computed = {
   settings: state => state.settings
-}
+};
 
 export const mutations = {
-  [SET_IS_PROXY](state, isProxy) {
-    state.isProxy = isProxy;
-  },
-
-  [SET_IS_CONSOLE_REQUESTS](state, isConsoleRequests) {
-    state.isConsoleRequests = isConsoleRequests;
-    localStorage.setItem('isConsoleRequests', isConsoleRequests);
-  },
-
   [SET_USER_ID](state, userId) {
     state.userId = userId;
   },
@@ -208,11 +195,11 @@ export const actions = {
     try {
       if (state.webhookURL) {
         let responseData;
-        if (state.isConsoleRequests) {
+        if (state.settings.isConsoleRequests) {
           expandedLog({ request: data });
           console.log('\n');
         }
-        if (state.isProxy) {
+        if (state.settings.isProxy) {
           responseData = await this.$axios.$post('/api/request', axiosData, {
             timeout: state.timeout
           });
@@ -221,7 +208,7 @@ export const actions = {
             timeout: state.timeout
           });
         }
-        if (state.isConsoleRequests) {
+        if (state.settings.isConsoleRequests) {
           expandedLog({ response: responseData });
           console.log('\n\n\n\n\n');
         }
@@ -268,7 +255,7 @@ export const actions = {
         text:
           'Используется навык по адресу ' +
           url +
-          (state.isProxy ? ', через прокси' : ', без прокси'),
+          (state.settings.isProxy ? ', через прокси' : ', без прокси'),
         author: 'Клиент',
         class: 'info'
       });
