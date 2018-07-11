@@ -1,11 +1,13 @@
 export const SET_IS_BOTTOM_TESTS = 'SET_IS_BOTTOM_TESTS';
 export const SET_IS_PROXY = 'SET_IS_PROXY';
 export const SET_IS_CONSOLE_REQUESTS = 'SET_IS_CONSOLE_REQUESTS';
+export const SET_MESSAGE_LIMIT = 'SET_MESSAGE_LIMIT';
 
 export const state = () => ({
   isBottomTests: false,
   isProxy: process.env.isProxy,
-  isConsoleRequests: false
+  isConsoleRequests: false,
+  messageLimit: 200
 });
 
 export const mutations = {
@@ -17,5 +19,8 @@ export const mutations = {
   },
   [SET_IS_CONSOLE_REQUESTS](state, isConsoleRequests) {
     state.isConsoleRequests = isConsoleRequests;
+  },
+  [SET_MESSAGE_LIMIT](state, messageLimit) {
+    state.messageLimit = messageLimit;
   }
 };

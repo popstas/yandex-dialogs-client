@@ -8,6 +8,8 @@ export const SET_SESSION_ID = 'SET_SESSION_ID';
 export const SET_SESSION_NEW = 'SET_SESSION_NEW';
 export const SET_MESSAGE_ID = 'SET_MESSAGE_ID';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const SET_MESSAGES = 'SET_MESSAGES';
+export const LIMIT_MESSAGES = 'LIMIT_MESSAGES';
 export const SET_WEBHOOK_URL = 'SET_WEBHOOK_URL';
 export const SET_WEBHOOK_URLS = 'SET_WEBHOOK_URLS';
 export const ADD_WEBHOOK_URL = 'ADD_WEBHOOK_URL';
@@ -126,6 +128,10 @@ export const mutations = {
       }
     };
     state.messages.push(message);
+  },
+
+  [SET_MESSAGES](state, messages) {
+    state.messages = messages;
   }
 };
 
@@ -317,6 +323,14 @@ export const actions = {
     });
   },
 
+  [LIMIT_MESSAGES]({ state, commit }) {
+    if (state.messages.length > state.settings.messageLimit) {
+      const messages = state.messages.slice(state.messages.length - state.settings.messageLimit);
+      commit(SET_MESSAGES, messages);
+      // state.messages.shift();
+    }
+  },
+
   async [RUN_TEST]({ dispatch, getters, commit }, dialogs) {
     let allFailedTests = [];
     const verbose = false;
@@ -448,6 +462,7 @@ export const actions = {
           class: 'success'
         });
       }
+      dispatch(LIMIT_MESSAGES);
       // end of dialog
     }
 

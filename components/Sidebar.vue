@@ -19,6 +19,11 @@
     </el-row>
 
     <el-row>
+      Макс. кол-во сообщений в чате
+      <el-input v-model="messageLimit"></el-input>
+    </el-row>
+
+    <el-row>
       <a class="app-link" :href="$store.state.homepage + '/blob/master/CHANGELOG.md'" target="_blank">
         <icon name="brands/github"></icon>
         {{ $store.state.name }} {{ $store.state.version }}
@@ -66,7 +71,7 @@
 
 <script>
 import 'vue-awesome/icons/brands/github';
-import { SET_IS_BOTTOM_TESTS, SET_IS_PROXY, SET_IS_CONSOLE_REQUESTS } from '~/store/settings';
+import { SET_IS_BOTTOM_TESTS, SET_IS_PROXY, SET_IS_CONSOLE_REQUESTS, SET_MESSAGE_LIMIT } from '~/store/settings';
 import MessageButton from '~/components/MessageButton';
 
 export default {
@@ -101,6 +106,15 @@ export default {
       },
       set(val) {
         this.$store.commit(`settings/${SET_IS_CONSOLE_REQUESTS}`, val);
+      }
+    },
+
+    messageLimit: {
+      get() {
+        return this.$store.state.settings.messageLimit;
+      },
+      set(val) {
+        this.$store.commit(`settings/${SET_MESSAGE_LIMIT}`, val);
       }
     },
 
