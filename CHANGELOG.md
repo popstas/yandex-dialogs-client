@@ -1,3 +1,20 @@
+<a name="0.8.1"></a>
+## [0.8.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.0...v0.8.1) (2018-07-14)
+
+
+### Bug Fixes
+
+* максимальная задержка уменьшена до 1.5 сек ([16bd9ea](https://github.com/popstas/yandex-dialogs-client/commit/16bd9ea))
+* при неответе навыка тест не считался проваленным ([170265d](https://github.com/popstas/yandex-dialogs-client/commit/170265d))
+
+
+### Features
+
+* настраиваемый timeout ([3872ea1](https://github.com/popstas/yandex-dialogs-client/commit/3872ea1))
+* ограничение кол-ва сообщений в чате (для скорости) ([6a14b89](https://github.com/popstas/yandex-dialogs-client/commit/6a14b89))
+
+
+
 <a name="0.8.0"></a>
 # [0.8.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.2...v0.8.0) (2018-07-08)
 
