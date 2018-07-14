@@ -2,12 +2,14 @@ export const SET_IS_BOTTOM_TESTS = 'SET_IS_BOTTOM_TESTS';
 export const SET_IS_PROXY = 'SET_IS_PROXY';
 export const SET_IS_CONSOLE_REQUESTS = 'SET_IS_CONSOLE_REQUESTS';
 export const SET_MESSAGE_LIMIT = 'SET_MESSAGE_LIMIT';
+export const SET_TIMEOUT = 'SET_TIMEOUT';
 
 export const state = () => ({
   isBottomTests: false,
   isProxy: process.env.isProxy,
   isConsoleRequests: false,
-  messageLimit: 200
+  messageLimit: 200,
+  timeout: 1500
 });
 
 export const mutations = {
@@ -22,5 +24,8 @@ export const mutations = {
   },
   [SET_MESSAGE_LIMIT](state, messageLimit) {
     state.messageLimit = messageLimit;
+  },
+  [SET_TIMEOUT](state, timeout) {
+    state.timeout = timeout;
   }
 };

@@ -59,7 +59,6 @@ export const state = () => ({
   homepage: pjson.homepage,
 
   // app state
-  timeout: 1500,
   speechEngine: process.env.speechEngine,
   yandexAPIKey: process.env.yandexAPIKey,
   userId: '',
@@ -207,11 +206,11 @@ export const actions = {
         }
         if (state.settings.isProxy) {
           responseData = await this.$axios.$post('/api/request', axiosData, {
-            timeout: state.timeout
+            timeout: state.settings.timeout
           });
         } else {
           responseData = await this.$axios.$post(state.webhookURL, data, {
-            timeout: state.timeout
+            timeout: state.settings.timeout
           });
         }
         if (state.settings.isConsoleRequests) {
