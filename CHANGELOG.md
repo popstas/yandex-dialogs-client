@@ -1,3 +1,13 @@
+<a name="0.8.2"></a>
+## [0.8.2](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.1...v0.8.2) (2018-12-30)
+
+
+### Features
+
+* session.skill_id в запросе ([6a35ca3](https://github.com/popstas/yandex-dialogs-client/commit/6a35ca3)), closes [#1](https://github.com/popstas/yandex-dialogs-client/issues/1)
+
+
+
 <a name="0.8.1"></a>
 ## [0.8.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.0...v0.8.1) (2018-07-14)
 
