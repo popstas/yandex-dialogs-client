@@ -48,6 +48,14 @@ const expandedLog = (() => {
   };
 })();
 
+const string2Hex = strIn => {
+  var str = '';
+  for(var i = 0; i < strIn.length; i++) {
+      str += strIn[i].charCodeAt(0).toString(16);
+  }
+  return str;
+};
+
 export const state = () => ({
   // data
   messages: [],
@@ -61,6 +69,7 @@ export const state = () => ({
   // app state
   speechEngine: process.env.speechEngine,
   yandexAPIKey: process.env.yandexAPIKey,
+  skillId: '',
   userId: '',
   sessionId: '',
   sessionNew: true,
@@ -103,6 +112,9 @@ export const mutations = {
   [SET_WEBHOOK_URL](state, webhookURL) {
     state.webhookURL = webhookURL;
     localStorage.setItem('webhookURL', webhookURL);
+    state.skillId = string2Hex(webhookURL);
+    console.log('webhookURL: ', webhookURL);
+    console.log('state.skillId: ', state.skillId);
   },
 
   [SET_WEBHOOK_URLS](state, webhookURLs) {
@@ -185,6 +197,7 @@ export const actions = {
         message_id: state.messageId,
         new: state.sessionNew,
         session_id: state.sessionId,
+        skill_id: state.skillId,
         user_id: state.userId
       },
       version: '1.0'
