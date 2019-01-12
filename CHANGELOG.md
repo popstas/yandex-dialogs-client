@@ -1,3 +1,21 @@
+<a name="0.9.0"></a>
+# [0.9.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.2...v0.9.0) (2019-01-12)
+
+
+### Bug Fixes
+
+* убрано скакание ширины при пустом диалоге ([274cfb8](https://github.com/popstas/yandex-dialogs-client/commit/274cfb8))
+
+
+### Features
+
+* возможность удалять вебхуки из списка ([ed79b9e](https://github.com/popstas/yandex-dialogs-client/commit/ed79b9e))
+* добавлен request.nlu ([efb4912](https://github.com/popstas/yandex-dialogs-client/commit/efb4912))
+* передача первого сообщения через ?msg=abc ([695094d](https://github.com/popstas/yandex-dialogs-client/commit/695094d))
+* сохранение истории сообщений между обновлениями страницы ([663ad18](https://github.com/popstas/yandex-dialogs-client/commit/663ad18))
+
+
+
 <a name="0.8.2"></a>
 ## [0.8.2](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.1...v0.8.2) (2018-12-30)
 
