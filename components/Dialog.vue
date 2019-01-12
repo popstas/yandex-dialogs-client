@@ -137,6 +137,12 @@ export default {
         msg = this.getMyMessage(this.currentMessage);
       }
 
+      // дедупликация предыдущих сообщений
+      else if (this.q == msg.text) {
+        this.previousMessage();
+        return;
+      }
+
       this.q = msg.text;
     },
 
@@ -152,6 +158,13 @@ export default {
       }
 
       const msg = this.getMyMessage(this.currentMessage);
+
+      // дедупликация следующих сообщений
+      if (this.q == msg.text) {
+        this.nextMessage();
+        return;
+      }
+
       this.q = msg.text;
     },
 

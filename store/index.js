@@ -113,8 +113,6 @@ export const mutations = {
     state.webhookURL = webhookURL;
     localStorage.setItem('webhookURL', webhookURL);
     state.skillId = string2Hex(webhookURL);
-    console.log('webhookURL: ', webhookURL);
-    console.log('state.skillId: ', state.skillId);
   },
 
   [SET_WEBHOOK_URLS](state, webhookURLs) {
