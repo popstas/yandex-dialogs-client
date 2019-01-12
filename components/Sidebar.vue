@@ -24,6 +24,11 @@
     </el-row>
 
     <el-row>
+      Макс. кол-во сообщений при открытии страницы
+      <el-input v-model="messageStoreLimit"></el-input>
+    </el-row>
+
+    <el-row>
       Макс. время ответа
       <el-input v-model="timeout"></el-input>
     </el-row>
@@ -81,6 +86,7 @@ import {
   SET_IS_PROXY,
   SET_IS_CONSOLE_REQUESTS,
   SET_MESSAGE_LIMIT,
+  SET_MESSAGE_STORE_LIMIT,
   SET_TIMEOUT
 } from '~/store/settings';
 import MessageButton from '~/components/MessageButton';
@@ -126,6 +132,15 @@ export default {
       },
       set(val) {
         this.$store.commit(`settings/${SET_MESSAGE_LIMIT}`, val);
+      }
+    },
+
+    messageStoreLimit: {
+      get() {
+        return this.$store.state.settings.messageStoreLimit;
+      },
+      set(val) {
+        this.$store.commit(`settings/${SET_MESSAGE_STORE_LIMIT}`, val);
       }
     },
 

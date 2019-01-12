@@ -78,7 +78,8 @@ import {
   SET_WEBHOOK_URLS,
   ADD_MESSAGE,
   AUTHOR_NAME,
-  SESSION_START
+  SESSION_START,
+  SET_MESSAGES
 } from "~/store";
 
 export default {
@@ -205,8 +206,20 @@ export default {
     }
   },
 
+  created() {
+    // при открытии страницы остается не больше 20 последних сообщений, чтобы тесты не тормозили
+    if (this.messages.length > this.$store.state.settings.messageStoreLimit) {
+      this.$store.commit(
+        SET_MESSAGES,
+        this.messages.slice(
+          this.messages.length - this.$store.state.settings.messageStoreLimit
+        )
+      );
+    }
+  },
+
   // scroll to messages bottom on messages updated
-  updated: function() {
+  updated() {
     this.$nextTick(function() {
       if (this.$refs.messages) {
         this.$refs.messages.scrollTop = this.$refs.messages.scrollHeight;

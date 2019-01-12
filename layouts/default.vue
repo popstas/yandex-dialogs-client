@@ -3,11 +3,23 @@
     <el-container>
       <!-- https://github.com/Mango/slideout#user-content-slideoutoptions -->
       <no-ssr>
-        <Slideout :toggleSelectors="['.menu-toggle']" panel="#panel" menu="#menu"
-            side="left" :padding="280">
+        <Slideout
+          :toggleSelectors="['.menu-toggle']"
+          panel="#panel"
+          menu="#menu"
+          side="left"
+          :padding="280"
+        >
           <div id="panel">
             <el-header height="42px">
               <button class="menu-toggle">☰</button>
+              <el-button
+                class="clear-messages"
+                @click="clearMessages"
+                title="очистить историю"
+                icon="el-icon-delete"
+                size="mini"
+              ></el-button>
             </el-header>
             <el-main>
               <nuxt/>
@@ -26,8 +38,8 @@
 $container-width: 480px;
 
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
-    'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -59,12 +71,20 @@ html {
 
 .el-header {
   padding: 0 5px;
+
   .menu-toggle {
     background: none;
     border: none;
     line-height: 42px;
     outline: none;
     cursor: pointer;
+  }
+
+  .clear-messages {
+    // float:right;
+    line-height: 42px;
+    border: none;
+    background: none !important;
   }
 }
 .slideout-menu {
@@ -107,7 +127,9 @@ html {
 </style>
 
 <script>
-import Sidebar from '~/components/Sidebar';
+import Sidebar from "~/components/Sidebar";
+import { SET_MESSAGES } from "~/store";
+
 export default {
   components: { Sidebar },
   head() {
@@ -119,10 +141,19 @@ export default {
   computed: {
     title() {
       return (
-        (this.$store.state.webhookURL ? this.$store.state.webhookURL + ' - ' : '') +
-        'yandex-dialogs-client ' +
+        (this.$store.state.webhookURL
+          ? this.$store.state.webhookURL + " - "
+          : "") +
+        "yandex-dialogs-client " +
         this.$store.state.version
       );
+    }
+  },
+
+  methods: {
+    clearMessages() {
+      console.log('clearMessages');
+      this.$store.commit(SET_MESSAGES, []);
     }
   }
 };
