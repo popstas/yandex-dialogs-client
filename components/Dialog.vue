@@ -192,6 +192,17 @@ export default {
     } else {
       this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem("webhookURL"));
     }
+
+    // send message
+    if (this.$route.query.msg) {
+      setTimeout(() => {
+        this.$store.commit(ADD_MESSAGE, {
+          text: this.$route.query.msg,
+          author: AUTHOR_NAME
+        });
+        this.$store.dispatch(ALICE_REQUEST, this.$route.query.msg);
+      }, 1500);
+    }
   },
 
   // scroll to messages bottom on messages updated
