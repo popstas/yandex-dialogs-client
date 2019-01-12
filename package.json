@@ -23,7 +23,7 @@
     "es6-promise": "^4.2.5",
     "js-yaml": "^3.12.1",
     "node-sass": "^4.11.0",
-    "nuxt": "^1.4.5",
+    "nuxt": "^2.3.4",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.21.0",
     "vue-awesome": "^3.3.1",
@@ -32,13 +32,19 @@
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
-    "babel-eslint": "^8.2.6",
+    "babel-eslint": "^8.2.1",
+    "eslint": "^5.0.1",
+    "eslint-config-standard": ">=12.0.0",
+    "eslint-plugin-import": ">=2.14.0",
+    "eslint-plugin-jest": ">=21.24.1",
+    "eslint-plugin-node": ">=7.0.1",
+    "eslint-plugin-promise": ">=4.0.1",
+    "eslint-plugin-standard": ">=4.0.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-vue": "^5.0.0",
     "conventional-changelog-cli": "^2.0.11",
     "conventional-github-releaser": "^3.1.0",
-    "eslint": "^4.15.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-loader": "^1.7.1",
-    "eslint-plugin-vue": "^4.7.1"
+    "eslint-friendly-formatter": "^3.0.0"
   },
   "name": "yandex-dialogs-client",
   "version": "0.9.0",

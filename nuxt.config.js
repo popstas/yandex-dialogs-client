@@ -63,24 +63,18 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    transpile: [/^vue-awesome/],
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient, isServer  }) {
-      if (isDev && isClient) {
+    extend(config, ctx) {
+      if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
         })
-      }
-      if (isServer) {
-        config.externals = [
-          nodeExternals({
-            whitelist: [/^vue-awesome/]
-          })
-        ]
       }
     }
   }
