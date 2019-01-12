@@ -1,5 +1,5 @@
 <template>
-  <el-button class="message-button" round v-html="text" @click="onClick"></el-button>
+  <el-button :title="title" class="message-button" round v-html="text" @click="onClick"></el-button>
 </template>
 
 <style lang="scss">
@@ -25,9 +25,15 @@
 </style>
 
 <script>
-import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST, RUN_TEST, SET_WEBHOOK_URL } from '~/store';
+import {
+  AUTHOR_NAME,
+  ADD_MESSAGE,
+  ALICE_REQUEST,
+  RUN_TEST,
+  SET_WEBHOOK_URL
+} from "~/store";
 export default {
-  props: ['title', 'value', 'url', 'payload', 'hide'],
+  props: ["title", "value", "url", "payload", "hide"],
 
   computed: {
     // показывается человеку
@@ -45,7 +51,7 @@ export default {
     onClick() {
       // open url
       if (this.url) {
-        window.open(this.url, '_blank');
+        window.open(this.url, "_blank");
         return;
       }
 
@@ -74,7 +80,7 @@ export default {
       // send to alice
       this.$store.dispatch(ALICE_REQUEST, {
         command: this.sendText,
-        type: 'ButtonPressed',
+        type: "ButtonPressed",
         payload: this.payload,
         url: this.url,
         hide: this.hide

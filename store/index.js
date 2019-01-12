@@ -13,6 +13,7 @@ export const LIMIT_MESSAGES = 'LIMIT_MESSAGES';
 export const SET_WEBHOOK_URL = 'SET_WEBHOOK_URL';
 export const SET_WEBHOOK_URLS = 'SET_WEBHOOK_URLS';
 export const ADD_WEBHOOK_URL = 'ADD_WEBHOOK_URL';
+export const REMOVE_WEBHOOK_URL = 'REMOVE_WEBHOOK_URL';
 export const SESSION_START = 'SESSION_START';
 export const SESSION_END = 'SESSION_END';
 export const RUN_TEST = 'RUN_TEST';
@@ -126,6 +127,14 @@ export const mutations = {
       state.webhookURLs.push(webhookURL);
       localStorage.setItem('webhookURLs', JSON.stringify(state.webhookURLs));
     }
+  },
+
+  [REMOVE_WEBHOOK_URL](state, webhookURL) {
+    const index = state.webhookURLs.indexOf(webhookURL);
+    if (index == -1) return;
+
+    state.webhookURLs.splice(index, 1);
+    localStorage.setItem('webhookURLs', JSON.stringify(state.webhookURLs));
   },
 
   [ADD_MESSAGE](state, message) {
