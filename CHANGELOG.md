@@ -1,3 +1,13 @@
+## [1.0.1](https://github.com/popstas/yandex-dialogs-client/compare/v1.0.0...v1.0.1) (2019-01-12)
+
+
+### Bug Fixes
+
+* вывод времени в json запросов и ответов в консоли ([d0bed96](https://github.com/popstas/yandex-dialogs-client/commit/d0bed96))
+* ошибка в request.nlu.tokens при нажатии кнопки ([0e4b806](https://github.com/popstas/yandex-dialogs-client/commit/0e4b806))
+
+
+
 # [1.0.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.9.0...v1.0.0) (2019-01-12)
 
 
