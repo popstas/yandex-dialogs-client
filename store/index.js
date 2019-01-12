@@ -179,7 +179,7 @@ export const actions = {
       type: 'SimpleUtterance',
       payload: {},
       nlu: {
-        tokens: command.split(' '),
+        tokens: [],
         entities: []
       }
     };
@@ -196,6 +196,8 @@ export const actions = {
       requestOpts = { ...requestOpts, ...command };
       requestOpts.original_utterance = requestOpts.command;
     }
+
+    requestOpts.nlu.tokens = requestOpts.command.split(' ');
 
     const data = {
       meta: {
