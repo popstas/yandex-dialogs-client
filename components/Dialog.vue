@@ -29,7 +29,7 @@
   text-align: center;
 
   &__messages {
-    overflow-y: auto;
+    overflow-y: scroll;
     padding: 0 1rem;
     height: calc(100vh - 172px);
 
