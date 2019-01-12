@@ -7,19 +7,32 @@
         </el-row>
       </el-row>
       <div class="dialog__tests" v-if="tests.length > 0 && $store.state.settings.isBottomTests">
-        <MessageButton :class="{
+        <MessageButton
+          :class="{
             message__button: true,
             'message-button_success': dialog.success === true,
             'message-button_error': dialog.success === false
           }"
-          v-for="dialog in tests" :key="dialog.name"
-          :title="dialog.name" :payload="JSON.stringify({ scenarios_test: [dialog] })"></MessageButton>
-        <MessageButton class="message__button" title="все тесты" :payload="JSON.stringify({ scenarios_test: tests })"></MessageButton>
+          v-for="dialog in tests"
+          :key="dialog.name"
+          :title="dialog.name"
+          :payload="JSON.stringify({ scenarios_test: [dialog] })"
+        ></MessageButton>
+        <MessageButton
+          class="message__button"
+          title="все тесты"
+          :payload="JSON.stringify({ scenarios_test: tests })"
+        ></MessageButton>
       </div>
-
     </div>
 
-    <SearchInput v-model="q" @submit="onSubmit" @up="previousMessage" @down="nextMessage" ref="searchInput"></SearchInput>
+    <SearchInput
+      v-model="q"
+      @submit="onSubmit"
+      @up="previousMessage"
+      @down="nextMessage"
+      ref="searchInput"
+    ></SearchInput>
   </div>
 </template>
 
@@ -55,9 +68,9 @@
 </style>
 
 <script>
-import SearchInput from '~/components/SearchInput';
-import Message from '~/components/Message';
-import MessageButton from '~/components/MessageButton';
+import SearchInput from "~/components/SearchInput";
+import Message from "~/components/Message";
+import MessageButton from "~/components/MessageButton";
 import {
   ALICE_REQUEST,
   SET_USER_ID,
@@ -66,7 +79,7 @@ import {
   ADD_MESSAGE,
   AUTHOR_NAME,
   SESSION_START
-} from '~/store';
+} from "~/store";
 
 export default {
   components: {
@@ -78,7 +91,7 @@ export default {
   data() {
     return {
       currentMessage: -1,
-      q: ''
+      q: ""
     };
   },
 
@@ -133,7 +146,7 @@ export default {
 
       // empty message
       if (this.currentMessage == -1) {
-        this.q = '';
+        this.q = "";
         return;
       }
 
@@ -143,23 +156,25 @@ export default {
 
     // num - position from last, 0 - last, 1 - previous
     getMyMessage(num) {
-      const msgs = this.messages.filter(message => message.author == AUTHOR_NAME);
+      const msgs = this.messages.filter(
+        message => message.author == AUTHOR_NAME
+      );
       const ind = msgs.length - 1 - num;
       return msgs[ind] || false;
     },
 
     getUserId() {
-      let userId = localStorage.getItem('userId');
+      let userId = localStorage.getItem("userId");
       if (!userId) {
         userId = this.$store.getters.randomGuid;
-        localStorage.setItem('userId', userId);
+        localStorage.setItem("userId", userId);
       }
       return userId;
     },
 
     getWebhookURLs() {
       try {
-        return JSON.parse(localStorage.getItem('webhookURLs'));
+        return JSON.parse(localStorage.getItem("webhookURLs"));
       } catch (err) {
         return [];
       }
@@ -170,10 +185,12 @@ export default {
     this.$store.commit(SET_USER_ID, this.getUserId());
     this.$store.dispatch(SESSION_START);
     this.$store.commit(SET_WEBHOOK_URLS, this.getWebhookURLs());
+
+    // set webhook
     if (this.$route.query.use) {
       this.$store.dispatch(SET_WEBHOOK_URL, this.$route.query.use);
     } else {
-      this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem('webhookURL'));
+      this.$store.dispatch(SET_WEBHOOK_URL, localStorage.getItem("webhookURL"));
     }
   },
 
