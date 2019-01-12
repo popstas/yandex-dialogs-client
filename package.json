@@ -47,7 +47,7 @@
     "eslint-friendly-formatter": "^3.0.0"
   },
   "name": "yandex-dialogs-client",
-  "version": "0.9.0",
+  "version": "1.0.0",
   "description": "Клиент для работы с навыками Яндекс.Диалогов Алисы локально",
   "repository": {
     "type": "git",

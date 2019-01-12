@@ -1,4 +1,12 @@
-<a name="0.9.0"></a>
+# [1.0.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.9.0...v1.0.0) (2019-01-12)
+
+
+### Features
+
+* горячие кнопки для очистки input и истории сообщений (ctrl+C, ctrl+L) ([c6b9f81](https://github.com/popstas/yandex-dialogs-client/commit/c6b9f81))
+
+
+
 # [0.9.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.2...v0.9.0) (2019-01-12)
 
 
@@ -16,7 +24,6 @@
 
 
 
-<a name="0.8.2"></a>
 ## [0.8.2](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.1...v0.8.2) (2018-12-30)
 
 
@@ -26,7 +33,6 @@
 
 
 
-<a name="0.8.1"></a>
 ## [0.8.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.8.0...v0.8.1) (2018-07-14)
 
 
@@ -43,7 +49,6 @@
 
 
 
-<a name="0.8.0"></a>
 # [0.8.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.2...v0.8.0) (2018-07-08)
 
 
@@ -63,7 +68,6 @@
 
 
 
-<a name="0.7.2"></a>
 ## [0.7.2](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.1...v0.7.2) (2018-07-08)
 
 
@@ -80,7 +84,6 @@
 
 
 
-<a name="0.7.1"></a>
 ## [0.7.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.7.0...v0.7.1) (2018-07-07)
 
 
@@ -95,7 +98,6 @@
 
 
 
-<a name="0.7.0"></a>
 # [0.7.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.6.1...v0.7.0) (2018-07-07)
 
 
@@ -108,7 +110,6 @@
 
 
 
-<a name="0.6.1"></a>
 ## [0.6.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.6.0...v0.6.1) (2018-07-02)
 
 
@@ -126,7 +127,6 @@
 
 
 
-<a name="0.6.0"></a>
 # [0.6.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.5.0...v0.6.0) (2018-07-02)
 
 
@@ -143,7 +143,6 @@
 
 
 
-<a name="0.5.0"></a>
 # [0.5.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.4.1...v0.5.0) (2018-07-01)
 
 
@@ -161,7 +160,6 @@
 
 
 
-<a name="0.4.1"></a>
 ## [0.4.1](https://github.com/popstas/yandex-dialogs-client/compare/v0.4.0...v0.4.1) (2018-07-01)
 
 
@@ -177,7 +175,6 @@
 
 
 
-<a name="0.4.0"></a>
 # [0.4.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.3.0...v0.4.0) (2018-07-01)
 
 
@@ -189,7 +186,6 @@
 
 
 
-<a name="0.3.0"></a>
 # [0.3.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.2.0...v0.3.0) (2018-06-30)
 
 
@@ -208,7 +204,6 @@
 
 
 
-<a name="0.2.0"></a>
 # [0.2.0](https://github.com/popstas/yandex-dialogs-client/compare/v0.1.0...v0.2.0) (2018-06-27)
 
 
@@ -220,7 +215,6 @@
 
 
 
-<a name="0.1.0"></a>
 # [0.1.0](https://github.com/popstas/yandex-dialogs-client/compare/2473aeb...v0.1.0) (2018-06-17)
 
 
