@@ -39,7 +39,11 @@ const expandedLog = (() => {
         let msg = '';
         if (value.request && value.request.command) msg = value.request.command;
         if (value.response && value.response.text) msg = value.response.text;
-        console.group(key + ': ' + msg);
+
+        let groupName = `${key}: ${msg}`;
+        if (depth == 0) groupName = `[${new Date().toLocaleTimeString()}] ${groupName}`;
+        console.group(groupName);
+
         expandedLog(value, depth + 1);
         console.groupEnd();
       }
