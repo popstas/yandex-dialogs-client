@@ -1,17 +1,30 @@
 <!-- speechEngine: browser, yandex -->
 <template>
   <div class="search-input">
-    <button :class="{'speech-toggle':true, 'search-input__speech-toggle':true, active: isSpeechRunning}"
-            @click="speechToggle" slot="suffix"
+    <button
+      :class="{'speech-toggle':true, 'search-input__speech-toggle':true, active: isSpeechRunning}"
+      @click="speechToggle"
+      slot="suffix"
     >
-      <icon v-if="recognition" name="microphone"
-            class="el-icon-speech el-input__icon"
-            :style="{ transform: 'scale(' + volumeScale +')' }"></icon>
+      <icon
+        v-if="recognition"
+        name="microphone"
+        class="el-icon-speech el-input__icon"
+        :style="{ transform: 'scale(' + volumeScale +')' }"
+      ></icon>
     </button>
 
-    <el-input ref="input" v-model="q" clearable autofocus
-              @keydown.native.enter="submit" @keydown.native.up="$emit('up')" @keyup.native.down="$emit('down')">
-    </el-input>
+    <el-input
+      ref="input"
+      v-model="q"
+      clearable
+      autofocus
+      @keydown.native.ctrl.c="q = ''"
+      @keydown.native.ctrl.l.prevent="clearMessages"
+      @keydown.native.enter="submit"
+      @keydown.native.up="$emit('up')"
+      @keyup.native.down="$emit('down')"
+    ></el-input>
   </div>
 </template>
 
@@ -45,7 +58,8 @@
 </style>
 
 <script>
-import 'vue-awesome/icons/microphone';
+import "vue-awesome/icons/microphone";
+import { SET_MESSAGES } from "~/store";
 // import webspeechkit from '~/assets/webspeechkit';
 // import webspeechkitSettings from '~/assets/webspeechkit-settings';
 // import SpeechRecognition from '~/assets/speechrecognition';
@@ -54,22 +68,22 @@ export default {
   // components: { Speech },
   props: {
     value: {
-      default: ''
+      default: ""
     }
   },
 
   data() {
     return {
-      lang: 'ru-RU',
+      lang: "ru-RU",
       q: this.value,
       recognition: false,
       isSpeechRunning: false,
       isSpeechWillStart: false,
-      runtimeTranscription: '',
+      runtimeTranscription: "",
       transcription: [],
       volume: 0,
       audioContext: false,
-      lastInput: ''
+      lastInput: ""
     };
   },
 
@@ -101,7 +115,7 @@ export default {
     },
 
     q(val) {
-      this.$emit('input', val);
+      this.$emit("input", val);
     },
 
     messages(messages) {
@@ -111,8 +125,8 @@ export default {
 
   methods: {
     submit() {
-      this.$emit('submit', this.q);
-      this.q = '';
+      this.$emit("submit", this.q);
+      this.q = "";
     },
 
     onMessagesChange(messages) {
@@ -120,7 +134,7 @@ export default {
         return;
       }
       const last = messages[messages.length - 1];
-      if (last.author == 'Робот') {
+      if (last.author == "Робот") {
         this.isSpeechWillStart = false; // флаг ставит яндекс при распознавании
         this.speechStart();
       }
@@ -144,9 +158,16 @@ export default {
       this.isSpeechRunning = true;
 
       // volume listener, https://github.com/cwilso/volume-meter/blob/master/volume-meter.js
-      navigator.getUserMedia({ video: false, audio: true }, this.onGetUserMedia, err => {
-        console.log('Ошибка доступа к микрофону, возможно, вы запретили его использование.', err);
-      });
+      navigator.getUserMedia(
+        { video: false, audio: true },
+        this.onGetUserMedia,
+        err => {
+          console.log(
+            "Ошибка доступа к микрофону, возможно, вы запретили его использование.",
+            err
+          );
+        }
+      );
 
       ya.speechkit.recognize({
         apikey: this.yandexAPIKey,
@@ -160,7 +181,7 @@ export default {
 
         errorCallback: async err => {
           await this.speechStop();
-          console.log('Возникла ошибка при запросе к yandex: ' + err);
+          console.log("Возникла ошибка при запросе к yandex: " + err);
         }
       });
     },
@@ -175,9 +196,16 @@ export default {
       this.isSpeechRunning = true;
 
       // volume listener, https://github.com/cwilso/volume-meter/blob/master/volume-meter.js
-      navigator.getUserMedia({ video: false, audio: true }, this.onGetUserMedia, err => {
-        console.log('Ошибка доступа к микрофону, возможно, вы запретили его использование.', err);
-      });
+      navigator.getUserMedia(
+        { video: false, audio: true },
+        this.onGetUserMedia,
+        err => {
+          console.log(
+            "Ошибка доступа к микрофону, возможно, вы запретили его использование.",
+            err
+          );
+        }
+      );
     },
 
     async speechStop() {
@@ -219,7 +247,7 @@ export default {
       if (!this.isSpeechRunning) {
         return;
       }
-      if (text === '') {
+      if (text === "") {
         return;
       }
       await this.speechStop();
@@ -247,7 +275,7 @@ export default {
     },
 
     initSpeechApi() {
-      console.log('Init speech API: ', this.speechEngine);
+      console.log("Init speech API: ", this.speechEngine);
       const engines = {
         browser: this.speechInitBrowser,
         yandex: this.speechInitYandex
@@ -261,7 +289,8 @@ export default {
     },
 
     speechInitBrowser() {
-      window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      window.SpeechRecognition =
+        window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRecognition) {
         return;
       }
@@ -271,16 +300,16 @@ export default {
       recognition.lang = this.lang;
       recognition.interimResults = false;
 
-      recognition.addEventListener('result', event => {
+      recognition.addEventListener("result", event => {
         // console.log('speech result', event.results);
         const text = Array.from(event.results)
           .map(result => result[0])
           .map(result => result.transcript)
-          .join('');
+          .join("");
         this.runtimeTranscription = text;
       });
 
-      recognition.addEventListener('end', this.onSpeechEndBrowser);
+      recognition.addEventListener("end", this.onSpeechEndBrowser);
       this.recognition = recognition;
     },
 
@@ -343,6 +372,10 @@ export default {
       // ... then take the square root of the sum.
       let rms = Math.sqrt(sum / bufLength);
       this.volume = rms;
+    },
+
+    clearMessages() {
+      this.$store.commit(SET_MESSAGES, []);
     }
   },
 

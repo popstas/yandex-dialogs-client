@@ -152,7 +152,6 @@ export default {
 
   methods: {
     clearMessages() {
-      console.log('clearMessages');
       this.$store.commit(SET_MESSAGES, []);
     }
   }
