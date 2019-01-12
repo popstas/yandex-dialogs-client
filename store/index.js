@@ -50,8 +50,8 @@ const expandedLog = (() => {
 
 const string2Hex = strIn => {
   var str = '';
-  for(var i = 0; i < strIn.length; i++) {
-      str += strIn[i].charCodeAt(0).toString(16);
+  for (let i = 0; i < strIn.length; i++) {
+    str += strIn[i].charCodeAt(0).toString(16);
   }
   return str;
 };
@@ -170,7 +170,11 @@ export const actions = {
 
     let requestOpts = {
       type: 'SimpleUtterance',
-      payload: {}
+      payload: {},
+      nlu: {
+        tokens: command.split(' '),
+        entities: []
+      }
     };
 
     if (typeof command === 'string') {
