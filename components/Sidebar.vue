@@ -42,7 +42,7 @@
         target="_blank"
       >
         <icon name="brands/github"></icon>
-        {{ $store.state.name }} {{ $store.state.version }}
+        {{ $store.state.name }} {{ $store.state.version }} (changelog)
       </a>
     </el-row>
 
