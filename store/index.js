@@ -185,6 +185,9 @@ export const actions = {
       nlu: {
         tokens: [],
         entities: []
+      },
+      markup: {
+        // "dangerous_context": true
       }
     };
 
@@ -207,7 +210,10 @@ export const actions = {
       meta: {
         locale: 'ru-RU',
         timezone: timezone,
-        client_id: userAgent
+        client_id: userAgent,
+        interfaces: {
+          screen: {}
+        }
       },
       request: requestOpts,
       session: {
@@ -334,6 +340,15 @@ export const actions = {
     } catch (err) {
       //console.error(err);
       // it's normal
+      if (typeof err == 'object' && err.name == 'YAMLException') {
+        console.log(err);
+        commit(ADD_MESSAGE, {
+          text: 'Ошибка в scenarios.yml: ' + err.message,
+          buttons: [],
+          author: 'Клиент',
+          class: 'error'
+        });
+      }
     }
   },
 
