@@ -1,3 +1,12 @@
+## [1.0.2](https://github.com/popstas/yandex-dialogs-client/compare/v1.0.1...v1.0.2) (2019-01-30)
+
+
+### Bug Fixes
+
+* выводить сообщения об ошибках в scenarios.yml ([ae37b1a](https://github.com/popstas/yandex-dialogs-client/commit/ae37b1a))
+
+
+
 ## [1.0.1](https://github.com/popstas/yandex-dialogs-client/compare/v1.0.0...v1.0.1) (2019-01-12)
 
 
