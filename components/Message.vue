@@ -6,7 +6,15 @@
     </div>
 
     <div class="message__text-wrap">
-      <div class="message__text" v-html="text"></div>
+      <div class="message__text">
+        <span v-html="text"></span>
+        <div class="card-items-list" v-if="message.card && message.card.items && message.card.items.length>0">
+          <span v-if="message.card.header" class="card-items-header" v-html="message.card.header.text"></span>
+          <CardItem v-for="item in message.card.items" :key="item.image_id"
+                    :image="item.image_id" :title="item.title" :payload="item.button.payload">
+          </CardItem>
+        </div>
+      </div>
     </div>
 
     <div class="message__buttons">
@@ -17,6 +25,13 @@
 </template>
 
 <style lang="scss">
+.card-items-list {
+  background: white;
+}
+.card-items-header {
+  font-weight: bold;
+  padding: 5px;
+}
 .message {
   margin-top: 15px;
   margin-bottom: 15px;
@@ -107,9 +122,10 @@
 <script>
 import { AUTHOR_NAME, ADD_MESSAGE, ALICE_REQUEST } from '~/store';
 import MessageButton from '~/components/MessageButton';
+import CardItem from '~/components/CardItem';
 
 export default {
-  components: { MessageButton },
+  components: { MessageButton,CardItem },
   props: ['message'],
 
   computed: {

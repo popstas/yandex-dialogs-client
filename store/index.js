@@ -256,6 +256,7 @@ export const actions = {
 
         commit(ADD_MESSAGE, {
           text: responseData.response.text,
+          card: responseData.response.card || {header:{},items:[]},
           buttons: responseData.response.buttons,
           end_session: responseData.response.end_session,
           author: 'Робот',

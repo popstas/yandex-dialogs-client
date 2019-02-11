@@ -1,26 +1,22 @@
 <template>
-  <el-button :title="title" class="message-button" round v-html="text" @click="onClick"></el-button>
+  <div class="card-item" @click="onClick">
+    <div v-bind:style="cardItemIconStyle"></div>
+    <div :title="title" class="card-item-text" v-html="text"></div>
+  </div>
 </template>
 
 <style lang="scss">
-.message-button {
-  margin: 3px !important;
-  padding: 3px 6px !important;
-  font-size: 10px;
-  border-color: #d8e2f5;
+.card-item {
+  display: flex;
+  padding: 10px;
   color: #666;
   &:hover {
-    background: none;
     color: #999;
   }
-
-  &_success {
-    border-left-color: #28a745;
-  }
-
-  &_error {
-    border-left-color: #dc3545;
-  }
+}
+.card-item-text {
+  padding: inherit;
+  color: inherit;
 }
 </style>
 
@@ -33,7 +29,7 @@ import {
   SET_WEBHOOK_URL
 } from "~/store";
 export default {
-  props: ["title", "value", "url", "payload", "hide"],
+  props: ["title", "image", "url", "payload", "hide"],
 
   computed: {
     // показывается человеку
@@ -44,6 +40,19 @@ export default {
     // отправляется боту
     sendText() {
       return this.value || this.title;
+    },
+
+    cardItemIconStyle() {
+      return {
+        'background-image': 'url(https://avatars.mds.yandex.net/get-dialogs-skill-card/' + this.image + '/menu-list-x1',
+        width: '60px',
+        height: '60px',
+        overflow: 'hidden',
+        position: 'relative',
+        'background-size': 'cover',
+        'background-repeat': 'no-repeat',
+        'background-position': '0 0'
+      }
     }
   },
 
@@ -55,27 +64,11 @@ export default {
         return;
       }
 
-      // run tests
-      if (this.payload && typeof this.payload ==="string") {
-        const payload = JSON.parse(this.payload);
-        if (payload.scenarios_test) {
-          this.$store.dispatch(RUN_TEST, payload.scenarios_test);
-        }
-        return;
-      }
-
       // add send message
       this.$store.commit(ADD_MESSAGE, {
         text: this.sendText,
         author: AUTHOR_NAME
       });
-
-      // use webhook
-      const matches = this.sendText.match(/^use (.*)$/);
-      if (matches) {
-        this.$store.dispatch(SET_WEBHOOK_URL, matches[1]);
-        return;
-      }
 
       // send to alice
       this.$store.dispatch(ALICE_REQUEST, {
