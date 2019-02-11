@@ -88,7 +88,7 @@
     }
   }
   &_info .message__text-wrap {
-    border-left-color: #17a2b8;
+    border-left-color: #17a3b856;
   }
   &_success .message__text-wrap {
     border-left-color: #28a745;
