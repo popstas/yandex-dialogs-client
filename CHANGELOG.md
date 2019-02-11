@@ -1,3 +1,17 @@
+# [1.1.0](https://github.com/popstas/yandex-dialogs-client/compare/v1.0.2...v1.1.0) (2019-02-11)
+
+
+### Bug Fixes
+
+* более бледный маркер системного сообщения ([131d616](https://github.com/popstas/yandex-dialogs-client/commit/131d616))
+
+
+### Features
+
+* карточки ItemsList ([acad67f](https://github.com/popstas/yandex-dialogs-client/commit/acad67f))
+
+
+
 ## [1.0.2](https://github.com/popstas/yandex-dialogs-client/compare/v1.0.1...v1.0.2) (2019-01-30)
 
 
