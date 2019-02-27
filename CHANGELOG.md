@@ -1,3 +1,12 @@
+## [1.1.1](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.0...v1.1.1) (2019-02-27)
+
+
+### Features
+
+* проверка /scerarios.yml по умолчанию отключена ([47daf24](https://github.com/popstas/yandex-dialogs-client/commit/47daf24))
+
+
+
 # [1.1.0](https://github.com/popstas/yandex-dialogs-client/compare/v1.0.2...v1.1.0) (2019-02-11)
 
 
