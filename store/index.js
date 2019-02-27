@@ -256,7 +256,7 @@ export const actions = {
 
         commit(ADD_MESSAGE, {
           text: responseData.response.text,
-          card: responseData.response.card || {header:{},items:[]},
+          card: responseData.response.card || { header: {}, items: [] },
           buttons: responseData.response.buttons,
           end_session: responseData.response.end_session,
           author: 'Робот',
@@ -305,50 +305,52 @@ export const actions = {
     dispatch(ALICE_REQUEST, '');
 
     // scenarios.yml
-    try {
-      const responseData = await this.$axios.$get(state.webhookURL + '/scenarios.yml');
-      const doc = yaml.safeLoad(responseData);
+    if (state.settings.isScenarios) {
+      try {
+        const responseData = await this.$axios.$get(state.webhookURL + '/scenarios.yml');
+        const doc = yaml.safeLoad(responseData);
 
-      let tests = [];
-      let buttons = [];
-      for (let name in doc) {
-        const dialog = {
-          name: name,
-          messages: doc[name]
-        };
-        tests.push(dialog);
+        let tests = [];
+        let buttons = [];
+        for (let name in doc) {
+          const dialog = {
+            name: name,
+            messages: doc[name]
+          };
+          tests.push(dialog);
+          buttons.push({
+            title: name,
+            payload: JSON.stringify({ scenarios_test: [dialog] })
+          });
+        }
+        commit(SET_TESTS, tests);
+
         buttons.push({
-          title: name,
-          payload: JSON.stringify({ scenarios_test: [dialog] })
+          title: 'все тесты',
+          payload: JSON.stringify({ scenarios_test: tests })
         });
-      }
-      commit(SET_TESTS, tests);
 
-      buttons.push({
-        title: 'все тесты',
-        payload: JSON.stringify({ scenarios_test: tests })
-      });
-
-      commit(ADD_MESSAGE, {
-        text:
-          'У навыка есть scenarios.yml, в нем есть следующие сценарии (' +
-          state.tests.length +
-          '):',
-        buttons: state.settings.isBottomTests ? [] : buttons,
-        author: 'Клиент',
-        class: 'info'
-      });
-    } catch (err) {
-      //console.error(err);
-      // it's normal
-      if (typeof err == 'object' && err.name == 'YAMLException') {
-        console.log(err);
         commit(ADD_MESSAGE, {
-          text: 'Ошибка в scenarios.yml: ' + err.message,
-          buttons: [],
+          text:
+            'У навыка есть scenarios.yml, в нем есть следующие сценарии (' +
+            state.tests.length +
+            '):',
+          buttons: state.settings.isBottomTests ? [] : buttons,
           author: 'Клиент',
-          class: 'error'
+          class: 'info'
         });
+      } catch (err) {
+        //console.error(err);
+        // it's normal
+        if (typeof err == 'object' && err.name == 'YAMLException') {
+          console.log(err);
+          commit(ADD_MESSAGE, {
+            text: 'Ошибка в scenarios.yml: ' + err.message,
+            buttons: [],
+            author: 'Клиент',
+            class: 'error'
+          });
+        }
       }
     }
   },

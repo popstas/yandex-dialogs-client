@@ -1,5 +1,6 @@
 export const SET_IS_BOTTOM_TESTS = 'SET_IS_BOTTOM_TESTS';
 export const SET_IS_PROXY = 'SET_IS_PROXY';
+export const SET_IS_SCENARIOS = 'SET_IS_SCENARIOS';
 export const SET_IS_CONSOLE_REQUESTS = 'SET_IS_CONSOLE_REQUESTS';
 export const SET_MESSAGE_LIMIT = 'SET_MESSAGE_LIMIT';
 export const SET_MESSAGE_STORE_LIMIT = 'SET_MESSAGE_STORE_LIMIT';
@@ -9,6 +10,7 @@ export const state = () => ({
   isBottomTests: false,
   isProxy: process.env.isProxy,
   isConsoleRequests: false,
+  isScenarios: false,
   messageLimit: 200, // никогда не может быть больше этого
   messageStoreLimit: 20, // после обновления страницы
   timeout: 1500
@@ -20,6 +22,9 @@ export const mutations = {
   },
   [SET_IS_PROXY](state, isProxy) {
     state.isProxy = isProxy;
+  },
+  [SET_IS_SCENARIOS](state, isScenarios) {
+    state.isScenarios = isScenarios;
   },
   [SET_IS_CONSOLE_REQUESTS](state, isConsoleRequests) {
     state.isConsoleRequests = isConsoleRequests;

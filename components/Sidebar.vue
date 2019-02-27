@@ -13,6 +13,13 @@
 
     <el-row>
       <el-switch
+        active-text="Использовать /scenarios.yml"
+        v-model="isScenarios"
+      ></el-switch>
+    </el-row>
+
+    <el-row>
+      <el-switch
         active-text="Показывать тесты внизу"
         v-if="$store.state.tests.length > 0"
         v-model="isBottomTests"
@@ -98,6 +105,7 @@ import "vue-awesome/icons/brands/github";
 import {
   SET_IS_BOTTOM_TESTS,
   SET_IS_PROXY,
+  SET_IS_SCENARIOS,
   SET_IS_CONSOLE_REQUESTS,
   SET_MESSAGE_LIMIT,
   SET_MESSAGE_STORE_LIMIT,
@@ -120,6 +128,15 @@ export default {
       },
       set(val) {
         this.$store.commit(`settings/${SET_IS_PROXY}`, val);
+      }
+    },
+
+    isScenarios: {
+      get() {
+        return this.$store.state.settings.isScenarios;
+      },
+      set(val) {
+        this.$store.commit(`settings/${SET_IS_SCENARIOS}`, val);
       }
     },
 
