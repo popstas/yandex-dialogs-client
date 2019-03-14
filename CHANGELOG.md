@@ -1,3 +1,12 @@
+## [1.1.2](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.1...v1.1.2) (2019-03-14)
+
+
+### Features
+
+* yandex-dialogs-client as cli tool and npm package ([9d4c226](https://github.com/popstas/yandex-dialogs-client/commit/9d4c226))
+
+
+
 ## [1.1.1](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.0...v1.1.1) (2019-02-27)
 
 
