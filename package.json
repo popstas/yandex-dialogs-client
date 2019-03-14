@@ -1,6 +1,6 @@
 {
   "bin": {
-    "yandex-dialogs-client": "scripts/nuxt-start.js"
+    "yandex-dialogs-client": "bin/nuxt-start.js"
   },
   "files": [
     ".nuxt",
