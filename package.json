@@ -3,8 +3,11 @@
     "yandex-dialogs-client": "bin/nuxt-start.js"
   },
   "files": [
+    "bin",
     ".nuxt",
-    "dist"
+    "dist",
+    "static",
+    "nuxt.config.js"
   ],
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3003 nuxt",
