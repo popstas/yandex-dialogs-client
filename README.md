@@ -109,12 +109,21 @@
 
 #### Запуск через Docker
 
-```
+``` bash
 docker run --name yandex-dialogs-client -d -p 3000:3000 popstas/yandex-dialogs-client
 ```
 
-#### Запуск через Docker compose
+#### Установка через npm
+
+``` bash
+npm install -g yanedex-dialogs-client
+
+# launch:
+yandex-dialogs-client
 ```
+
+#### Запуск через Docker compose
+``` bash
 git clone https://github.com/popstas/yandex-dialogs-client.git
 cd yandex-dialogs-client
 cp .env.sample .env
@@ -122,14 +131,14 @@ cp .env.sample .env
 
 Нужно скопировать `.env.sample` в `.env` и заполнить. После этого собрать и поднять:
 
-```
+``` bash
 docker-compose build
 docker-compose up -d
 ```
 
 #### Сборка из исходников
 
-```
+``` bash
 git clone https://github.com/popstas/yandex-dialogs-client.git
 cd yandex-dialogs-client
 npm install

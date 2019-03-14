@@ -1,4 +1,10 @@
 {
+  "bin": {
+    "yandex-dialogs-client": "scripts/nuxt-start.js"
+  },
+  "files": [
+    ".nuxt"
+  ],
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3003 nuxt",
     "dev-proxy": "cross-env IS_PROXY=1 HOST=0.0.0.0 PORT=3003 nuxt",
@@ -10,12 +16,13 @@
     "version": "npm run changelog && git add CHANGELOG.md",
     "postversion": "git push && npm run release",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s -r 0",
-    "release": "conventional-github-releaser -p angular && bash scripts/deploy.sh",
+    "release": "conventional-github-releaser -p angular && bash scripts/deploy.sh && npm publish",
     "deploy": "bash scripts/deploy.sh",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@nuxt/cli": "^2.4.5",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
     "body-parser": "^1.18.3",
