@@ -1,3 +1,7 @@
+## [1.1.6](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.5...v1.1.6) (2019-03-14)
+
+
+
 ## [1.1.5](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.4...v1.1.5) (2019-03-14)
 
 
