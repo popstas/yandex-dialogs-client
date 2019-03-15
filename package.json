@@ -3,6 +3,7 @@
     "yandex-dialogs-client": "bin/nuxt-start.js"
   },
   "files": [
+    "api",
     "bin",
     ".nuxt",
     "dist",
