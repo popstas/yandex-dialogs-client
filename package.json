@@ -5,7 +5,7 @@
   "files": [
     "api",
     "bin",
-    ".nuxt",
+    ".nuxt/**/*",
     "dist",
     "plugins",
     "static",
