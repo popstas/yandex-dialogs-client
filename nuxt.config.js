@@ -1,12 +1,14 @@
 const nodeExternals = require('webpack-node-externals');
 const bodyParser = require('body-parser');
 
+if(process.env.IS_PROXY === undefined) process.env.IS_PROXY = '0';
+
 module.exports = {
   // mode: 'spa',
   env: {
     baseUrl: process.env.BASE_URL || 'http://localhost:3000',
     production: process.env.NODE_ENV === "production",
-    isProxy: process.env.IS_PROXY ? (['false', '0', ''].includes(process.env.IS_PROXY) ? false : true === "") : true,
+    isProxy: process.env.IS_PROXY ? (['false', '0', ''].includes(process.env.IS_PROXY) ? false : true) : true,
     speechEngine: process.env.SPEECH_ENGINE || 'browser',
     yandexAPIKey: process.env.YANDEX_WEBSPEECH_KEY
   },
