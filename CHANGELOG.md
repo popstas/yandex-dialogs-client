@@ -1,3 +1,12 @@
+## [1.1.12](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.11...v1.1.12) (2020-04-13)
+
+
+### Bug Fixes
+
+* proxy was not work ([5bfee04](https://github.com/popstas/yandex-dialogs-client/commit/5bfee04))
+
+
+
 ## [1.1.11](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.10...v1.1.11) (2019-06-16)
 
 
