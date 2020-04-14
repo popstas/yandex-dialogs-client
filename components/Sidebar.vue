@@ -42,17 +42,6 @@
       <el-input v-model="timeout"></el-input>
     </el-row>
 
-    <el-row>
-      <a
-        class="app-link"
-        :href="$store.state.homepage + '/blob/master/CHANGELOG.md'"
-        target="_blank"
-      >
-        <icon name="brands/github"></icon>
-        {{ $store.state.name }} {{ $store.state.version }} (changelog)
-      </a>
-    </el-row>
-
     <el-row v-if="webhookURLs">
       <div>Последние URL навыков:</div>
       <ul class="webhooks-buttons">
@@ -61,6 +50,35 @@
           <button :title="`убрать ${webhookURL}`" class="webhooks-buttons__remove" @click="removeWebhookURL(webhookURL)">x</button>
         </li>
       </ul>
+    </el-row>
+
+    <el-row>
+      <a class="app-link" :href="$store.state.homepage"
+        target="_blank"
+      >
+        <icon name="brands/github"></icon>
+        {{ $store.state.name }} {{ $store.state.version }}
+      </a>
+    </el-row>
+    <el-row>
+      <ul>
+        <li>
+          <a :href="$store.state.homepage" target="_blank">Справка</a>
+        </li>
+        <li>
+          <a :href="$store.state.homepage + '/blob/master/CHANGELOG.md'" target="_blank">Changelog</a>
+        </li>
+        <li>
+          <a
+            target="_blank"
+            href="https://blog.popstas.ru/blog/2020/04/14/yandex-dialogs/#yandex-dialogs-client---инструмент-для-тестирования-навыков"
+          >
+            Статья
+          </a>
+        </li>
+      </ul>
+    </el-row>
+    <el-row>
     </el-row>
   </div>
 </template>
@@ -71,6 +89,10 @@
 
   .el-row {
     margin-bottom: 10px;
+
+    ul {
+      padding-left: 18px;
+    }
   }
 
   .app-link {
