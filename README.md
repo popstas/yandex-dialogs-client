@@ -116,7 +116,7 @@ docker run --name yandex-dialogs-client -d -p 3000:3000 popstas/yandex-dialogs-c
 #### Установка через npm
 
 ``` bash
-npm install -g yanedex-dialogs-client
+npm install -g yandex-dialogs-client
 
 # launch:
 yandex-dialogs-client
