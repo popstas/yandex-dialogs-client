@@ -76,6 +76,9 @@
             Статья
           </a>
         </li>
+        <li>
+          <a target="_blank" href="https://www.tinkoff.ru/sl/83wd1FGIcMR">💲 Поблагодарить автора</a>
+        </li>
       </ul>
     </el-row>
     <el-row>
