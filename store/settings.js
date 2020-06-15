@@ -13,7 +13,7 @@ export const state = () => ({
   isScenarios: false,
   messageLimit: 200, // никогда не может быть больше этого
   messageStoreLimit: 20, // после обновления страницы
-  timeout: 1500
+  timeout: 3000
 });
 
 export const mutations = {

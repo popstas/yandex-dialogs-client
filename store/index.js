@@ -274,7 +274,7 @@ export const actions = {
         });
       }
     } catch (err) {
-      const textPost = err.message.match(/timeout/) ? 'не ответил за 1.5 сек' : 'см. консоль';
+      const textPost = err.message.match(/timeout/) ? `не ответил за ${state.settings.timeout} мс` : 'см. консоль';
       commit(ADD_MESSAGE, {
         text: `Ошибка запроса к ${state.webhookURL} (${textPost})`,
         author: '',
