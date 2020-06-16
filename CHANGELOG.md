@@ -1,3 +1,19 @@
+# [1.2.0](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.12...v1.2.0) (2020-06-16)
+
+
+### Bug Fixes
+
+* timeout по умолчанию 3000 мс, поправлено сообщение об ошибке ([978c9fe](https://github.com/popstas/yandex-dialogs-client/commit/978c9fe)), closes [#3](https://github.com/popstas/yandex-dialogs-client/issues/3)
+* добавлены подсказки к переключателям ([83932f5](https://github.com/popstas/yandex-dialogs-client/commit/83932f5))
+
+
+### Features
+
+* переключатель "Устройство с экраном" (meta.interfaces.screen) ([81189f3](https://github.com/popstas/yandex-dialogs-client/commit/81189f3)), closes [#2](https://github.com/popstas/yandex-dialogs-client/issues/2)
+* ссылка поблагодарить автора - https://www.tinkoff.ru/sl/83wd1FGIcMR ([06bf50f](https://github.com/popstas/yandex-dialogs-client/commit/06bf50f))
+
+
+
 ## [1.1.12](https://github.com/popstas/yandex-dialogs-client/compare/v1.1.11...v1.1.12) (2020-04-13)
 
 
@@ -244,8 +260,8 @@
 
 ### Bug Fixes
 
-* **css:** кнопки выровнены по краям ([5a1132e](https://github.com/popstas/yandex-dialogs-client/commit/5a1132e))
 * ошибка SSR рендеринга Slideout ([a3e9192](https://github.com/popstas/yandex-dialogs-client/commit/a3e9192))
+* **css:** кнопки выровнены по краям ([5a1132e](https://github.com/popstas/yandex-dialogs-client/commit/5a1132e))
 
 
 ### Features
