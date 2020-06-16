@@ -1,36 +1,43 @@
 <template>
   <div class="sidebar">
     <el-row>
-      <el-switch
-        v-model="isProxy"
-        active-text="Использовать прокси"
-        title="Доступно только на установках с серверной частью,
-      локальные навыки на localhost надо тестить без прокси,
-      а удаленные, которые не разрешают CORS - через прокси"
-        :disabled="isProxyAvailable"
-      ></el-switch>
+      <el-tooltip content="Доступно только на установках с серверной частью,
+        локальные навыки на localhost надо тестить без прокси,
+        а удаленные, которые не разрешают CORS - через прокси">
+        <el-switch
+          v-model="isProxy"
+          active-text="Использовать прокси"
+          :disabled="isProxyAvailable"
+        ></el-switch>
+      </el-tooltip>
     </el-row>
 
     <el-row>
-      <el-switch
-        active-text="Использовать /scenarios.yml"
-        v-model="isScenarios"
-      ></el-switch>
+      <el-tooltip content="Включайте, только если ваш навык отдаёт файл /scenarios.yml">
+        <el-switch
+          active-text="Использовать /scenarios.yml"
+          v-model="isScenarios"
+        ></el-switch>
+      </el-tooltip>
     </el-row>
 
     <el-row>
-      <el-switch
-        active-text="Показывать тесты внизу"
-        v-if="$store.state.tests.length > 0"
-        v-model="isBottomTests"
-      ></el-switch>
+      <el-tooltip content="Закрепление панели тестов внизу чата">
+        <el-switch
+          active-text="Показывать тесты внизу"
+          v-if="$store.state.tests.length > 0"
+          v-model="isBottomTests"
+        ></el-switch>
+      </el-tooltip>
     </el-row>
 
     <el-row>
-      <el-switch
-        active-text="Устройство с экраном"
-        v-model="isScreen"
-      ></el-switch>
+      <el-tooltip content="meta.interfaces.screen">
+        <el-switch
+          active-text="Устройство с экраном"
+          v-model="isScreen"
+        ></el-switch>
+      </el-tooltip>
     </el-row>
 
     <el-row>
