@@ -27,6 +27,13 @@
     </el-row>
 
     <el-row>
+      <el-switch
+        active-text="Устройство с экраном"
+        v-model="isScreen"
+      ></el-switch>
+    </el-row>
+
+    <el-row>
       <el-switch active-text="Показывать JSON в консоли" v-model="isConsoleRequests"></el-switch>
     </el-row>
 
@@ -130,6 +137,7 @@ import "vue-awesome/icons/brands/github";
 import {
   SET_IS_BOTTOM_TESTS,
   SET_IS_PROXY,
+  SET_IS_SCREEN,
   SET_IS_SCENARIOS,
   SET_IS_CONSOLE_REQUESTS,
   SET_MESSAGE_LIMIT,
@@ -153,6 +161,15 @@ export default {
       },
       set(val) {
         this.$store.commit(`settings/${SET_IS_PROXY}`, val);
+      }
+    },
+
+    isScreen: {
+      get() {
+        return this.$store.state.settings.isScreen;
+      },
+      set(val) {
+        this.$store.commit(`settings/${SET_IS_SCREEN}`, val);
       }
     },
 

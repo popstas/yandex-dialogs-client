@@ -211,9 +211,7 @@ export const actions = {
         locale: 'ru-RU',
         timezone: timezone,
         client_id: userAgent,
-        interfaces: {
-          screen: {}
-        }
+        interfaces: {}
       },
       request: requestOpts,
       session: {
@@ -225,6 +223,10 @@ export const actions = {
       },
       version: '1.0'
     };
+
+    if(state.settings.isScreen) {
+      data.meta.interfaces.screen = {};
+    }
 
     if (state.sessionNew) {
       commit(SET_SESSION_NEW, false);
